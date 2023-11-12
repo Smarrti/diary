@@ -1,4 +1,6 @@
 export enum Routes {
-  Main = 'main',
+  TabMain = 'tab.main',
+  TabPlan = 'tab.plan',
+
   Onboarding = 'onboarding',
 }

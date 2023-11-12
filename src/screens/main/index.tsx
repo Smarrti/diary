@@ -8,10 +8,10 @@ const Root = styled.SafeAreaView`
   flex: 1;
 `;
 
-export const OnboardingScreen: FC = ({}) => {
+export const MainScreen: FC = ({}) => {
   return (
     <Root>
-      <Text>Onboarding</Text>
+      <Text>dfsfd</Text>
     </Root>
   );
 };

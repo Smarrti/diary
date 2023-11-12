@@ -1,18 +1,16 @@
 import React, {FC} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Routes} from './routes';
-import {OnboardingScreen} from '../screens/onboarding';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {OnboardingNavigator} from './onboarding';
+import {MainNavigator} from './main';
 
 const NavigatorContent: FC = () => {
-  const isOnboarded = true;
+  const isOnboarded = false;
 
   if (!isOnboarded) {
-    return <></>;
+    return <OnboardingNavigator />;
   }
 
-  return <></>;
+  return <MainNavigator />;
 };
 
 export const Navigation: FC = () => {
