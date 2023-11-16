@@ -17,6 +17,7 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 interface Props {
   data: any[];
   ItemComponent: any;
+  onIndexChanged?: (index: number) => void;
 }
 
 interface ItemProps {
@@ -78,8 +79,9 @@ const Item = ({item, index, scrollX, ItemComponent}: ItemProps) => {
   );
 };
 
-export const Carousel: FC<Props> = ({data, ItemComponent}) => {
+export const Carousel: FC<Props> = ({data, ItemComponent, onIndexChanged}) => {
   const [scrollX, setScrollX] = useState(0);
+  const snapInterval = Math.floor(CARD_LENGTH + SPACING * 1.5);
 
   return (
     <Animated.View>
@@ -87,7 +89,7 @@ export const Carousel: FC<Props> = ({data, ItemComponent}) => {
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
         decelerationRate={0.8}
-        snapToInterval={CARD_LENGTH + SPACING * 1.5}
+        snapToInterval={snapInterval}
         disableIntervalMomentum
         disableScrollViewPanResponder
         snapToAlignment={'start'}
@@ -107,6 +109,10 @@ export const Carousel: FC<Props> = ({data, ItemComponent}) => {
         keyExtractor={item => item.id}
         onScroll={event => {
           setScrollX(event.nativeEvent.contentOffset.x);
+          onIndexChanged &&
+            onIndexChanged(
+              Math.round(event.nativeEvent.contentOffset.x / snapInterval),
+            );
         }}
       />
     </Animated.View>
