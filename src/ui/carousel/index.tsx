@@ -84,7 +84,7 @@ export const Carousel: FC<Props> = ({data, ItemComponent, onIndexChanged}) => {
   const snapInterval = Math.floor(CARD_LENGTH + SPACING * 1.5);
 
   return (
-    <Animated.View>
+    <Root>
       <AnimatedFlatList
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
@@ -115,9 +115,13 @@ export const Carousel: FC<Props> = ({data, ItemComponent, onIndexChanged}) => {
             );
         }}
       />
-    </Animated.View>
+    </Root>
   );
 };
+
+const Root = styled(Animated.View)`
+  flex: 1;
+`;
 
 const AnimatedView = styled(Animated.View)`
   flex: 1;
