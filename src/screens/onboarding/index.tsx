@@ -6,6 +6,7 @@ import {carouselContent} from './data';
 import {OnboardingCarouselItem} from './onboardingCarouselItem';
 import {CarouselPagination} from '../../ui/carousel/carouselPagination';
 import {HorizontalPaddingScreen} from '../../styles/constants';
+import {Button} from 'react-native';
 
 export const OnboardingScreen: FC = ({}) => {
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -18,11 +19,16 @@ export const OnboardingScreen: FC = ({}) => {
           currentIndex={carouselIndex}
         />
       </Header>
-      <Carousel
-        data={carouselContent}
-        ItemComponent={OnboardingCarouselItem}
-        onIndexChanged={index => setCarouselIndex(index)}
-      />
+      <Main>
+        <Carousel
+          data={carouselContent}
+          ItemComponent={OnboardingCarouselItem}
+          onIndexChanged={index => setCarouselIndex(index)}
+        />
+      </Main>
+      <Footer>
+        <Button title="fff" />
+      </Footer>
     </Root>
   );
 };
@@ -36,4 +42,12 @@ const Header = styled.View`
   height: 16px;
   margin: 40px 0 20px;
   padding: 0 ${HorizontalPaddingScreen}px;
+`;
+
+const Main = styled.View`
+  flex: 1;
+`;
+
+const Footer = styled.View`
+  height: 60px;
 `;
