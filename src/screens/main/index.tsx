@@ -11,7 +11,7 @@ const Root = styled.SafeAreaView`
 export const MainScreen: FC = ({}) => {
   return (
     <Root>
-      <Text>dfsfd</Text>
+      <Text>Ежедневник</Text>
     </Root>
   );
 };

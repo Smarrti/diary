@@ -5,6 +5,7 @@ export const defaultColors = {
 
   text: '#000000',
   grayText: '#778087',
+  whiteText: '#FFFFFF',
 
   transparent: 'transparent',
 };

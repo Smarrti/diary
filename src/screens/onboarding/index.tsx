@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, createRef, useState} from 'react';
 import styled from 'styled-components/native';
 import {defaultColors} from '../../styles/colors';
 import {Carousel} from '../../ui/carousel';
@@ -6,10 +6,27 @@ import {carouselContent} from './data';
 import {OnboardingCarouselItem} from './onboardingCarouselItem';
 import {CarouselPagination} from '../../ui/carousel/carouselPagination';
 import {HorizontalPaddingScreen} from '../../styles/constants';
-import {Button} from 'react-native';
+import {IconButton} from '../../ui/buttons/iconButton';
+import {FlatList} from 'react-native';
+import {useStore} from '../../stores';
 
 export const OnboardingScreen: FC = ({}) => {
   const [carouselIndex, setCarouselIndex] = useState(0);
+  const flatlistRef = createRef<FlatList>();
+  const {configStore} = useStore();
+
+  const handleSlidePress = () => {
+    if (carouselIndex === 2) {
+      configStore.setOnboarded(true);
+    }
+    const nextIndex =
+      carouselIndex < carouselContent.length
+        ? carouselIndex + 1
+        : carouselIndex;
+    console.log(carouselIndex);
+
+    flatlistRef.current?.scrollToIndex({index: nextIndex, animated: true});
+  };
 
   return (
     <Root>
@@ -21,13 +38,14 @@ export const OnboardingScreen: FC = ({}) => {
       </Header>
       <Main>
         <Carousel
+          ref={flatlistRef}
           data={carouselContent}
           ItemComponent={OnboardingCarouselItem}
           onIndexChanged={index => setCarouselIndex(index)}
         />
       </Main>
       <Footer>
-        <Button title="fff" />
+        <IconButton onPress={handleSlidePress} />
       </Footer>
     </Root>
   );
@@ -49,5 +67,7 @@ const Main = styled.View`
 `;
 
 const Footer = styled.View`
+  padding: 0 ${HorizontalPaddingScreen}px;
   height: 60px;
+  align-items: flex-end;
 `;
