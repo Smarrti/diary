@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {forwardRef, useState} from 'react';
 import {FlatList, Dimensions} from 'react-native';
 import Animated, {
   interpolate,
@@ -79,45 +79,49 @@ const Item = ({item, index, scrollX, ItemComponent}: ItemProps) => {
   );
 };
 
-export const Carousel: FC<Props> = ({data, ItemComponent, onIndexChanged}) => {
-  const [scrollX, setScrollX] = useState(0);
-  const snapInterval = Math.floor(CARD_LENGTH + SPACING * 1.5);
+export const Carousel = forwardRef<FlatList, Props>(
+  ({data, ItemComponent, onIndexChanged}, ref) => {
+    const [scrollX, setScrollX] = useState(0);
+    const snapInterval = Math.floor(CARD_LENGTH + SPACING * 1.5);
 
-  return (
-    <Root>
-      <AnimatedFlatList
-        scrollEventThrottle={16}
-        showsHorizontalScrollIndicator={false}
-        decelerationRate={0.8}
-        snapToInterval={snapInterval}
-        disableIntervalMomentum
-        disableScrollViewPanResponder
-        snapToAlignment={'start'}
-        data={data}
-        horizontal
-        renderItem={({item, index}) => {
-          return (
-            <Item
-              item={item}
-              index={index}
-              scrollX={scrollX}
-              ItemComponent={ItemComponent}
-            />
-          );
-        }}
-        // @ts-ignore
-        keyExtractor={item => item.id}
-        onScroll={event => {
-          setScrollX(event.nativeEvent.contentOffset.x);
-          onIndexChanged &&
-            onIndexChanged(
-              Math.round(event.nativeEvent.contentOffset.x / snapInterval),
+    return (
+      <Root>
+        <AnimatedFlatList
+          ref={ref}
+          initialScrollIndex={0}
+          scrollEventThrottle={16}
+          showsHorizontalScrollIndicator={false}
+          decelerationRate={0.8}
+          snapToInterval={snapInterval}
+          disableIntervalMomentum
+          disableScrollViewPanResponder
+          snapToAlignment={'start'}
+          data={data}
+          horizontal
+          renderItem={({item, index}) => {
+            return (
+              <Item
+                item={item}
+                index={index}
+                scrollX={scrollX}
+                ItemComponent={ItemComponent}
+              />
             );
-        }}
-      />
-    </Root>
-  );
-};
+          }}
+          // @ts-ignore
+          keyExtractor={item => item.id}
+          onScroll={event => {
+            setScrollX(event.nativeEvent.contentOffset.x);
+            onIndexChanged &&
+              onIndexChanged(
+                Math.round(event.nativeEvent.contentOffset.x / snapInterval),
+              );
+          }}
+        />
+      </Root>
+    );
+  },
+);
 
 const Root = styled(Animated.View)`
   flex: 1;
