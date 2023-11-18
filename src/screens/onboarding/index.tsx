@@ -7,12 +7,19 @@ import {OnboardingCarouselItem} from './onboardingCarouselItem';
 import {CarouselPagination} from '../../ui/carousel/carouselPagination';
 import {HorizontalPaddingScreen} from '../../styles/constants';
 import {IconButton} from '../../ui/buttons/iconButton';
+import {useStore} from '../../stores';
 
 export const OnboardingScreen: FC = ({}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatlistRef = createRef<CarouselRefProps>();
+  const {setOnboarded} = useStore().configStore;
 
   const handleSlidePress = () => {
+    if (currentIndex + 1 === carouselContent.length) {
+      setOnboarded();
+      return;
+    }
+
     if (!flatlistRef.current) {
       return;
     }

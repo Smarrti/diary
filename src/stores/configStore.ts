@@ -2,6 +2,7 @@ import {makeAutoObservable} from 'mobx';
 
 export type ConfigStoreType = {
   isOnboarded: boolean;
+  setOnboarded: () => void;
 };
 
 export class ConfigStore {
