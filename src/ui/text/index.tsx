@@ -41,5 +41,5 @@ const StyledText = styled.Text<{
   color: ${({color}) => color};
   font-size: ${({fontSize}) => fontSize}px;
   font-weight: ${({fontWeight}) => fontWeight};
-  line-height: ${({lineHeight}) => (lineHeight ? `${lineHeight}px` : 'auto')};
+  ${({lineHeight}) => (lineHeight ? `line-height: ${lineHeight}px` : '')};
 `;
