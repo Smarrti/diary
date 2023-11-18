@@ -1,31 +1,34 @@
 import React, {FC, createRef, useState} from 'react';
 import styled from 'styled-components/native';
 import {defaultColors} from '../../styles/colors';
-import {Carousel} from '../../ui/carousel';
+import {Carousel, CarouselRefProps} from '../../ui/carousel';
 import {carouselContent} from './data';
 import {OnboardingCarouselItem} from './onboardingCarouselItem';
 import {CarouselPagination} from '../../ui/carousel/carouselPagination';
 import {HorizontalPaddingScreen} from '../../styles/constants';
 import {IconButton} from '../../ui/buttons/iconButton';
-import {FlatList} from 'react-native';
-import {useStore} from '../../stores';
 
 export const OnboardingScreen: FC = ({}) => {
-  const [carouselIndex, setCarouselIndex] = useState(0);
-  const flatlistRef = createRef<FlatList>();
-  const {configStore} = useStore();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const flatlistRef = createRef<CarouselRefProps>();
 
   const handleSlidePress = () => {
-    if (carouselIndex === 2) {
-      configStore.setOnboarded(true);
+    if (!flatlistRef.current) {
+      return;
     }
-    const nextIndex =
+
+    const {getCarouselIndex, scrollToIndex} = flatlistRef.current;
+    const carouselIndex = getCarouselIndex();
+    const index =
       carouselIndex < carouselContent.length
         ? carouselIndex + 1
         : carouselIndex;
-    console.log(carouselIndex);
 
-    flatlistRef.current?.scrollToIndex({index: nextIndex, animated: true});
+    scrollToIndex({
+      index,
+      animated: true,
+      onFinished: () => setCurrentIndex(index),
+    });
   };
 
   return (
@@ -33,7 +36,7 @@ export const OnboardingScreen: FC = ({}) => {
       <Header>
         <CarouselPagination
           countOfDots={carouselContent.length}
-          currentIndex={carouselIndex}
+          currentIndex={currentIndex}
         />
       </Header>
       <Main>
@@ -41,7 +44,7 @@ export const OnboardingScreen: FC = ({}) => {
           ref={flatlistRef}
           data={carouselContent}
           ItemComponent={OnboardingCarouselItem}
-          onIndexChanged={index => setCarouselIndex(index)}
+          onIndexChange={(index: number) => setCurrentIndex(index)}
         />
       </Main>
       <Footer>

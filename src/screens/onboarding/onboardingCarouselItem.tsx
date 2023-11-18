@@ -14,7 +14,7 @@ export const OnboardingCarouselItem: FC<IProps> = ({item}) => {
   const {image, title, content} = item;
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
       <StyledImage source={image} />
       <Title fontSize={fontSizes.fs34}>{title}</Title>
       <Text

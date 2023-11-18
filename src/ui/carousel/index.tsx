@@ -1,4 +1,10 @@
-import React, {forwardRef, useState} from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import {FlatList, Dimensions} from 'react-native';
 import Animated, {
   interpolate,
@@ -17,7 +23,7 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 interface Props {
   data: any[];
   ItemComponent: any;
-  onIndexChanged?: (index: number) => void;
+  onIndexChange: (index: number) => void;
 }
 
 interface ItemProps {
@@ -25,6 +31,17 @@ interface ItemProps {
   scrollX: number;
   item: any;
   ItemComponent: any;
+}
+
+export type CarouselActionOptions = {
+  index: number;
+  animated?: boolean;
+  onFinished?: () => void;
+};
+
+export interface CarouselRefProps {
+  scrollToIndex: (opt: CarouselActionOptions) => void;
+  getCarouselIndex: () => number;
 }
 
 const Item = ({item, index, scrollX, ItemComponent}: ItemProps) => {
@@ -60,7 +77,7 @@ const Item = ({item, index, scrollX, ItemComponent}: ItemProps) => {
 
   const cardStyle = useAnimatedStyle(() => {
     return {
-      transform: [{scaleY: size.value}],
+      transform: [{scaleY: size.value}, {scaleX: size.value}],
       opacity: opacity.value,
     };
   });
@@ -79,15 +96,32 @@ const Item = ({item, index, scrollX, ItemComponent}: ItemProps) => {
   );
 };
 
-export const Carousel = forwardRef<FlatList, Props>(
-  ({data, ItemComponent, onIndexChanged}, ref) => {
+export const Carousel = forwardRef<CarouselRefProps, Props>(
+  ({data, ItemComponent, onIndexChange}, ref) => {
     const [scrollX, setScrollX] = useState(0);
+    const [carouselIndex, setCarouselIndex] = useState(0);
+    const flatlistRef = useRef<FlatList>(null);
     const snapInterval = Math.floor(CARD_LENGTH + SPACING * 1.5);
+
+    const getCarouselIndex = useCallback(() => carouselIndex, [carouselIndex]);
+
+    useImperativeHandle(ref, () => ({
+      scrollToIndex: (opt: CarouselActionOptions) => {
+        'worklet';
+
+        if (opt.index === carouselIndex) {
+          return;
+        }
+        flatlistRef.current?.scrollToIndex(opt);
+        setCarouselIndex(opt.index);
+      },
+      getCarouselIndex,
+    }));
 
     return (
       <Root>
         <AnimatedFlatList
-          ref={ref}
+          ref={flatlistRef}
           initialScrollIndex={0}
           scrollEventThrottle={16}
           showsHorizontalScrollIndicator={false}
@@ -112,10 +146,12 @@ export const Carousel = forwardRef<FlatList, Props>(
           keyExtractor={item => item.id}
           onScroll={event => {
             setScrollX(event.nativeEvent.contentOffset.x);
-            onIndexChanged &&
-              onIndexChanged(
-                Math.round(event.nativeEvent.contentOffset.x / snapInterval),
-              );
+
+            const newIndex = Math.round(
+              event.nativeEvent.contentOffset.x / snapInterval,
+            );
+            setCarouselIndex(newIndex);
+            onIndexChange(newIndex);
           }}
         />
       </Root>

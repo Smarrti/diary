@@ -8,8 +8,6 @@ interface Props {
 }
 
 export const CarouselPagination: FC<Props> = ({countOfDots, currentIndex}) => {
-  console.log(new Array(countOfDots));
-
   return (
     <Root>
       {Array.from({length: countOfDots}).map((_, index) => (
