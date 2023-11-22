@@ -1,9 +1,10 @@
 import React, {FC} from 'react';
 import {ButtonWrapper} from './buttonWrapper';
-import {Text} from '../text';
 import styled from 'styled-components/native';
 import {defaultColors} from '../../styles/colors';
 import {TouchableWithoutFeedbackProps} from 'react-native';
+import {Icon} from '../icon';
+import {iconEnum} from '../icon/list';
 
 interface Props extends TouchableWithoutFeedbackProps {}
 
@@ -11,7 +12,7 @@ export const IconButton: FC<Props> = props => {
   return (
     <ButtonWrapper {...props}>
       <Container>
-        <Text color={defaultColors.whiteText}>{'>'}</Text>
+        <Icon name={iconEnum.arrowRight} />
       </Container>
     </ButtonWrapper>
   );
