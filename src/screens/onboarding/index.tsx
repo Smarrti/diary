@@ -1,6 +1,5 @@
 import React, {FC, createRef, useState} from 'react';
 import styled from 'styled-components/native';
-import {defaultColors} from '../../styles/colors';
 import {Carousel, CarouselRefProps} from '../../ui/carousel';
 import {carouselContent} from './data';
 import {OnboardingCarouselItem} from './onboardingCarouselItem';
@@ -8,6 +7,7 @@ import {CarouselPagination} from '../../ui/carousel/carouselPagination';
 import {HorizontalPaddingScreen} from '../../styles/constants';
 import {IconButton} from '../../ui/buttons/iconButton';
 import {useStore} from '../../stores';
+import {CommonScreenLayout} from '../../ui/layout/commonScreenLayout';
 
 export const OnboardingScreen: FC = ({}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -39,7 +39,7 @@ export const OnboardingScreen: FC = ({}) => {
   };
 
   return (
-    <Root>
+    <CommonScreenLayout>
       <Header>
         <CarouselPagination
           countOfDots={carouselContent.length}
@@ -57,14 +57,9 @@ export const OnboardingScreen: FC = ({}) => {
       <Footer>
         <IconButton onPress={handleSlidePress} />
       </Footer>
-    </Root>
+    </CommonScreenLayout>
   );
 };
-
-const Root = styled.SafeAreaView`
-  background-color: ${defaultColors.background[0]};
-  flex: 1;
-`;
 
 const Header = styled.View`
   height: 16px;
