@@ -1,11 +1,13 @@
 import React, {FC} from 'react';
-import {Text} from 'react-native';
 import {CommonScreenLayout} from '../../ui/layout/commonScreenLayout';
+import {Text} from '../../ui/text';
 
-export const MainScreen: FC = ({}) => {
+interface Props {}
+
+export const MonthlyPlan: FC<Props> = ({}) => {
   return (
     <CommonScreenLayout>
-      <Text>Ежедневник</Text>
+      <Text>sdfdsfsdf</Text>
     </CommonScreenLayout>
   );
 };

@@ -1,9 +1,9 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React, {FC} from 'react';
-import {MainScreen} from '../screens/main';
 import {Routes} from './routes';
 import {PlanScreen} from '../screens/plan';
 import {defaultTabbarScreenOptions} from './common';
+import {DiaryNavigator} from './diary';
 
 const Tab = createBottomTabNavigator();
 
@@ -11,8 +11,8 @@ export const MainNavigator: FC = ({}) => {
   return (
     <Tab.Navigator screenOptions={defaultTabbarScreenOptions}>
       <Tab.Screen
-        name={Routes.TabMain}
-        component={MainScreen}
+        name={Routes.TabDiary}
+        component={DiaryNavigator}
         options={{tabBarLabel: 'Ежедневник'}}
       />
       <Tab.Screen
