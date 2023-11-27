@@ -5,7 +5,6 @@ import {fontSizes, fontWeights} from '../../styles/constants';
 import {defaultColors} from '../../styles/colors';
 
 interface Props extends TextProps {
-  children: string;
   fontSize?: string;
   color?: string;
   fontWeight?: number;
@@ -42,4 +41,5 @@ const StyledText = styled.Text<{
   font-size: ${({fontSize}) => fontSize}px;
   font-weight: ${({fontWeight}) => fontWeight};
   ${({lineHeight}) => (lineHeight ? `line-height: ${lineHeight}px` : '')};
+  font-family: Roboto;
 `;
