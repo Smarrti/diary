@@ -1,11 +1,12 @@
 import {Platform} from 'react-native';
 
 export const defaultScreenOptions = {
-  headerShown: false,
+  headerShown: true,
   gestureEnabled: true,
 };
 
 export const defaultTabbarScreenOptions = {
-  ...defaultScreenOptions,
+  gestureEnabled: true,
+  headerShown: false,
   tabBarHideOnKeyboard: Platform.OS === 'android',
 };

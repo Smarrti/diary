@@ -10,9 +10,18 @@ const DiaryStack = createNativeStackNavigator<DiaryNavigatorType>();
 
 export const DiaryNavigator: FC = ({}) => {
   return (
-    <DiaryStack.Navigator screenOptions={defaultScreenOptions}>
-      <DiaryStack.Screen component={DiaryScreen} name={Routes.Diary} />
-      <DiaryStack.Screen component={MonthlyPlan} name={Routes.MonthlyPlan} />
+    <DiaryStack.Navigator
+      screenOptions={{...defaultScreenOptions, headerBlurEffect: 'regular'}}>
+      <DiaryStack.Screen
+        component={DiaryScreen}
+        name={Routes.Diary}
+        options={{title: 'Ежедневник'}}
+      />
+      <DiaryStack.Screen
+        component={MonthlyPlan}
+        name={Routes.MonthlyPlan}
+        options={{headerTitle: 'Планы месяца'}}
+      />
     </DiaryStack.Navigator>
   );
 };

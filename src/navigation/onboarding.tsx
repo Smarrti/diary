@@ -8,7 +8,8 @@ const Stack = createNativeStackNavigator();
 
 export const OnboardingNavigator: FC = ({}) => {
   return (
-    <Stack.Navigator screenOptions={{...defaultScreenOptions}}>
+    <Stack.Navigator
+      screenOptions={{...defaultScreenOptions, headerShown: false}}>
       <Stack.Screen name={Routes.Onboarding} component={OnboardingScreen} />
     </Stack.Navigator>
   );

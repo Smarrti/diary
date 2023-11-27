@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Button, Text} from 'react-native';
+import {Button, ScrollView, Text} from 'react-native';
 import {CommonScreenLayout} from '../../ui/layout/commonScreenLayout';
 import {Routes} from '../../navigation/routes';
 import {useNavigation} from '@react-navigation/native';
@@ -16,8 +16,10 @@ export const DiaryScreen: FC = () => {
 
   return (
     <CommonScreenLayout>
-      <Text>Ежедневник</Text>
-      <Button title="План на месяц" onPress={handleButton} />
+      <ScrollView>
+        <Text>Ежедневник</Text>
+        <Button title="План на месяц" onPress={handleButton} />
+      </ScrollView>
     </CommonScreenLayout>
   );
 };

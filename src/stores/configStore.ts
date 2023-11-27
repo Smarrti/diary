@@ -7,7 +7,7 @@ export type ConfigStoreType = {
 
 export class ConfigStore {
   rootStore;
-  isOnboarded = false;
+  isOnboarded = true;
 
   constructor(rootStore: any) {
     makeAutoObservable(this, {rootStore: false});
