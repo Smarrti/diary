@@ -7,14 +7,17 @@ import {HorizontalPaddingScreen, fontSizes} from '../../styles/constants';
 import styled from 'styled-components/native';
 import {Textarea} from '../../ui/textarea';
 import {Button} from '../../ui/buttons/button';
-import {View} from 'react-native';
 
 const Root = styled.ScrollView`
   padding: 22px ${HorizontalPaddingScreen}px;
 `;
 
+const Title = styled(Text)`
+  margin-bottom: 22px;
+`;
+
 const FormField = styled.View`
-  margin: 14px 0 14px;
+  margin-bottom: 22px;
 `;
 
 const StyledTextarea = styled(Textarea)`
@@ -30,9 +33,9 @@ export const MonthlyPlan: FC = () => {
   return (
     <CommonScreenLayout>
       <Root>
-        <Text fontSize={fontSizes.fs34} fontWeight={500}>
+        <Title fontSize={fontSizes.fs34} fontWeight={500}>
           Мои планы на {currentMonth}
-        </Text>
+        </Title>
 
         <FormField>
           <Text fontSize={fontSizes.fs20}>Чтение Библии</Text>
