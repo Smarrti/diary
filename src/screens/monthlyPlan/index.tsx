@@ -1,18 +1,22 @@
 import React, {FC, useState} from 'react';
 import {CommonScreenLayout} from '../../ui/layout/commonScreenLayout';
 import {Text} from '../../ui/text';
-import {DateTime} from 'luxon';
-import {getMonthByNumber} from '../../utils/months';
 import {HorizontalPaddingScreen, fontSizes} from '../../styles/constants';
 import styled from 'styled-components/native';
 import {Textarea} from '../../ui/textarea';
 import {Button} from '../../ui/buttons/button';
+import {defaultColors} from '../../styles/colors';
+import dayjs from 'dayjs';
 
 const Root = styled.ScrollView`
   padding: 22px ${HorizontalPaddingScreen}px;
 `;
 
 const Title = styled(Text)`
+  margin-bottom: 22px;
+`;
+
+const Disclaimer = styled(Text)`
   margin-bottom: 22px;
 `;
 
@@ -26,7 +30,7 @@ const StyledTextarea = styled(Textarea)`
 `;
 
 export const MonthlyPlan: FC = () => {
-  const currentMonth = getMonthByNumber(DateTime.now().month - 1);
+  const currentMonth = dayjs().format('MMMM');
 
   const [textd, seTextd] = useState('');
 
@@ -74,6 +78,9 @@ export const MonthlyPlan: FC = () => {
         </FormField>
 
         <FormField>
+          <Disclaimer color={defaultColors.grayText}>
+            В течении месяца вы можете редактировать планы
+          </Disclaimer>
           <Button>Сохранить</Button>
         </FormField>
       </Root>
