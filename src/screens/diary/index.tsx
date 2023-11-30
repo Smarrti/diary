@@ -6,7 +6,8 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {DiaryNavigatorType} from '../../navigation/navigationTypes';
 import RNFS from 'react-native-fs';
-import {defaultColors} from '../../styles/colors';
+import {FileManager} from '../../modules/fileManager';
+import {FileStorage} from '../../modules/fileStorage';
 
 export const DiaryScreen: FC = () => {
   const navigation =
@@ -16,17 +17,18 @@ export const DiaryScreen: FC = () => {
     navigation.push(Routes.MonthlyPlan);
   };
 
-  const createFile = () => {
-    console.log(RNFS.DocumentDirectoryPath);
-    const path = RNFS.DocumentDirectoryPath + '/test.json';
+  const createFile = async () => {
+    const instance = FileManager.getInstance();
+    console.log(await instance.getMonth('15-2023'));
+  };
 
-    RNFS.writeFile(path, JSON.stringify(defaultColors), 'utf8')
-      .then(() => {
-        console.log('FILE WRITTEN!');
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
+  const updateFile = async () => {
+    const instanceFileManager = FileManager.getInstance();
+    const content = JSON.parse(await instanceFileManager.getMonth('15-2023'));
+    content.dayReports = '12345';
+
+    const instanceFileStorage = FileStorage.getInstance();
+    instanceFileStorage.setFile('15-2023', JSON.stringify(content));
   };
 
   const find = () => {
@@ -60,6 +62,7 @@ export const DiaryScreen: FC = () => {
         <Text>Ежедневник</Text>
         <Button title="План на месяц" onPress={handleButton} />
         <Button title="Создать файл" onPress={createFile} />
+        <Button title="Обновить файл" onPress={updateFile} />
         <Button title="Find файл" onPress={find} />
       </ScrollView>
     </CommonScreenLayout>
