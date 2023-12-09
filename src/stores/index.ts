@@ -1,11 +1,14 @@
 import {createContext, useContext} from 'react';
-import {ConfigStore, ConfigStoreType} from './configStore';
+import {ConfigStore} from './configStore';
+import {DiaryStore} from './diary';
 
 class RootStore {
-  configStore: ConfigStoreType;
+  configStore: ConfigStore;
+  diaryStore: DiaryStore;
 
   constructor() {
     this.configStore = new ConfigStore(this);
+    this.diaryStore = new DiaryStore(this);
   }
 }
 

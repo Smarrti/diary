@@ -27,11 +27,11 @@ export class FileStorage {
   public async getFile(path: string) {
     const newPath = getPath(path);
 
-    if (!(await this.exists(newPath))) {
+    if (!(await this.exists(path))) {
       await this.setFile(path, emptyFileContent);
     }
 
-    return RNFS.readFile(newPath, defaultEncoding);
+    return await RNFS.readFile(newPath, defaultEncoding);
   }
 
   public async exists(path: string) {

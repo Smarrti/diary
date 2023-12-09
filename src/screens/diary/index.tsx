@@ -6,10 +6,22 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {DiaryNavigatorType} from '../../navigation/navigationTypes';
 import RNFS from 'react-native-fs';
-import {FileManager} from '../../modules/fileManager';
+import {DiaryManager} from '../../modules/diaryManager';
 import {FileStorage} from '../../modules/fileStorage';
+import {useStore} from '../../stores';
+import dayjs from 'dayjs';
+import {generateDiaryId} from '../../utils/generateDiaryId';
 
 export const DiaryScreen: FC = () => {
+  const {getStateFromManager, state, stateId} = useStore().diaryStore;
+  console.log(state, stateId);
+
+  const effect = () => {
+    const month = dayjs().month() + 1;
+    const year = dayjs().year();
+    const id = generateDiaryId(month, year);
+    getStateFromManager(id);
+  };
   const navigation =
     useNavigation<NativeStackNavigationProp<DiaryNavigatorType>>();
 
@@ -18,13 +30,13 @@ export const DiaryScreen: FC = () => {
   };
 
   const createFile = async () => {
-    const instance = FileManager.getInstance();
+    const instance = DiaryManager.getInstance();
     console.log(await instance.getMonth('15-2023'));
   };
 
   const updateFile = async () => {
-    const instanceFileManager = FileManager.getInstance();
-    const content = JSON.parse(await instanceFileManager.getMonth('15-2023'));
+    const instanceDiaryManager = DiaryManager.getInstance();
+    const content = JSON.parse(await instanceDiaryManager.getMonth('15-2023'));
     content.dayReports = '12345';
 
     const instanceFileStorage = FileStorage.getInstance();
@@ -61,6 +73,7 @@ export const DiaryScreen: FC = () => {
       <ScrollView>
         <Text>Ежедневник</Text>
         <Button title="План на месяц" onPress={handleButton} />
+        <Button title="useEffect" onPress={effect} />
         <Button title="Создать файл" onPress={createFile} />
         <Button title="Обновить файл" onPress={updateFile} />
         <Button title="Find файл" onPress={find} />

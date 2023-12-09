@@ -7,6 +7,9 @@ import {Textarea} from '../../ui/textarea';
 import {Button} from '../../ui/buttons/button';
 import {defaultColors} from '../../styles/colors';
 import dayjs from 'dayjs';
+import {KeyboardAvoidingView, Platform} from 'react-native';
+import {useStore} from '../../stores';
+import {useNavigation} from '@react-navigation/native';
 
 const Root = styled.ScrollView`
   padding: 22px ${HorizontalPaddingScreen}px;
@@ -30,60 +33,76 @@ const StyledTextarea = styled(Textarea)`
 `;
 
 export const MonthlyPlan: FC = () => {
+  const {setMonthPlans} = useStore().diaryStore;
+  const {goBack} = useNavigation();
+
   const currentMonth = dayjs().format('MMMM');
 
-  const [textd, seTextd] = useState('');
+  const [reading, setReading] = useState('');
+  const [memorization, setMemorization] = useState('');
+  const [pray, setPray] = useState('');
+  const [plans, setPlans] = useState('');
+
+  const handleSubmit = async () => {
+    setMonthPlans({reading, memorization, pray, plans}).finally(() => {
+      goBack();
+    });
+  };
 
   return (
     <CommonScreenLayout>
-      <Root>
-        <Title fontSize={fontSizes.fs34} fontWeight={500}>
-          Мои планы на {currentMonth}
-        </Title>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={100}>
+        <Root>
+          <Title fontSize={fontSizes.fs34} fontWeight={500}>
+            Мои планы на {currentMonth}
+          </Title>
 
-        <FormField>
-          <Text fontSize={fontSizes.fs20}>Чтение Библии</Text>
-          <StyledTextarea
-            fontSize={fontSizes.fs18}
-            value={textd}
-            onChange={seTextd}
-          />
-        </FormField>
+          <FormField>
+            <Text fontSize={fontSizes.fs20}>Чтение Библии</Text>
+            <StyledTextarea
+              fontSize={fontSizes.fs18}
+              value={reading}
+              onChangeText={setReading}
+            />
+          </FormField>
 
-        <FormField>
-          <Text fontSize={fontSizes.fs20}>Заучивание наизусть</Text>
-          <StyledTextarea
-            fontSize={fontSizes.fs18}
-            value={textd}
-            onChange={seTextd}
-          />
-        </FormField>
+          <FormField>
+            <Text fontSize={fontSizes.fs20}>Заучивание наизусть</Text>
+            <StyledTextarea
+              fontSize={fontSizes.fs18}
+              value={memorization}
+              onChangeText={setMemorization}
+            />
+          </FormField>
 
-        <FormField>
-          <Text fontSize={fontSizes.fs20}>Молитвенные нужды</Text>
-          <StyledTextarea
-            fontSize={fontSizes.fs18}
-            value={textd}
-            onChange={seTextd}
-          />
-        </FormField>
+          <FormField>
+            <Text fontSize={fontSizes.fs20}>Молитвенные нужды</Text>
+            <StyledTextarea
+              fontSize={fontSizes.fs18}
+              value={pray}
+              onChangeText={setPray}
+            />
+          </FormField>
 
-        <FormField>
-          <Text fontSize={fontSizes.fs20}>Планы в служении</Text>
-          <StyledTextarea
-            fontSize={fontSizes.fs18}
-            value={textd}
-            onChange={seTextd}
-          />
-        </FormField>
+          <FormField>
+            <Text fontSize={fontSizes.fs20}>Планы в служении</Text>
+            <StyledTextarea
+              fontSize={fontSizes.fs18}
+              value={plans}
+              onChangeText={setPlans}
+            />
+          </FormField>
 
-        <FormField>
-          <Disclaimer color={defaultColors.grayText}>
-            В течении месяца вы можете редактировать планы
-          </Disclaimer>
-          <Button>Сохранить</Button>
-        </FormField>
-      </Root>
+          <FormField>
+            <Disclaimer color={defaultColors.grayText}>
+              В течении месяца вы можете редактировать планы
+            </Disclaimer>
+            <Button onPress={handleSubmit}>Сохранить</Button>
+          </FormField>
+        </Root>
+      </KeyboardAvoidingView>
     </CommonScreenLayout>
   );
 };

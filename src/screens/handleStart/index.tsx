@@ -6,15 +6,14 @@ import {generateDiaryId} from '../../utils/generateDiaryId';
 export const HandleStartScreen: FC = ({}) => {
   const {diaryStore, configStore} = useStore();
 
-  const startAppHandle = () => {
-    // const month = dayjs().month() + 1;
-    // const year = dayjs().year();
-    const month = 1;
-    const year = 2024;
+  const startAppHandle = async () => {
+    const month = dayjs().month() + 1;
+    const year = dayjs().year();
+    // const month = 1;
+    // const year = 2024;
 
     const id = generateDiaryId(month, year);
-    console.log(id);
-    diaryStore.getStateFromManager(id);
+    await diaryStore.getStateFromManager(id);
 
     configStore.setAppInitialized();
   };
