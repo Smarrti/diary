@@ -4,9 +4,14 @@ import {OnboardingNavigator} from './onboarding';
 import {MainNavigator} from './main';
 import {useStore} from '../stores';
 import {observer} from 'mobx-react-lite';
+import {HandleStartNavigator} from './handleStart';
 
 const NavigatorContent: FC = observer(() => {
-  const {isOnboarded} = useStore().configStore;
+  const {isOnboarded, isAppInitialized} = useStore().configStore;
+
+  if (!isAppInitialized) {
+    return <HandleStartNavigator />;
+  }
 
   if (!isOnboarded) {
     return <OnboardingNavigator />;

@@ -5,4 +5,6 @@ export enum Routes {
   Onboarding = 'onboarding',
   Diary = 'diary',
   MonthlyPlan = 'monthlyPlan',
+
+  HandleStart = 'handleStart',
 }
