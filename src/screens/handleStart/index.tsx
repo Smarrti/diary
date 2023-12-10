@@ -21,7 +21,7 @@ export const HandleStartScreen: FC = ({}) => {
   useEffect(() => {
     setTimeout(() => {
       startAppHandle();
-    }, 5000);
+    }, 1000);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

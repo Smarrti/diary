@@ -42,10 +42,14 @@ export const MonthlyPlan: FC = () => {
 
   const currentMonth = getStringMonth(state?.date.month ?? 0);
 
-  const [reading, setReading] = useState('');
-  const [memorization, setMemorization] = useState('');
-  const [pray, setPray] = useState('');
-  const [plans, setPlans] = useState('');
+  const [reading, setReading] = useState(
+    state?.monthlyPlan.notes.reading ?? '',
+  );
+  const [memorization, setMemorization] = useState(
+    state?.monthlyPlan.notes.memorization ?? '',
+  );
+  const [pray, setPray] = useState(state?.monthlyPlan.notes.pray ?? '');
+  const [plans, setPlans] = useState(state?.monthlyPlan.notes.plans ?? '');
 
   const handleSubmit = async () => {
     setMonthPlans({reading, memorization, pray, plans}).finally(() => {
