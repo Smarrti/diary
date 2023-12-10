@@ -34,15 +34,6 @@ export const DiaryScreen: FC = () => {
     console.log(await instance.getMonth('15-2023'));
   };
 
-  const updateFile = async () => {
-    const instanceDiaryManager = DiaryManager.getInstance();
-    const content = JSON.parse(await instanceDiaryManager.getMonth('15-2023'));
-    content.dayReports = '12345';
-
-    const instanceFileStorage = FileStorage.getInstance();
-    instanceFileStorage.setFile('15-2023', JSON.stringify(content));
-  };
-
   const find = () => {
     RNFS.readDir(RNFS.DocumentDirectoryPath) // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
       .then(result => {
@@ -68,6 +59,11 @@ export const DiaryScreen: FC = () => {
       });
   };
 
+  const deleteF = () => {
+    const instance = FileStorage.getInstance();
+    instance.remove('12-2023');
+  };
+
   return (
     <CommonScreenLayout>
       <ScrollView>
@@ -75,8 +71,8 @@ export const DiaryScreen: FC = () => {
         <Button title="План на месяц" onPress={handleButton} />
         <Button title="useEffect" onPress={effect} />
         <Button title="Создать файл" onPress={createFile} />
-        <Button title="Обновить файл" onPress={updateFile} />
-        <Button title="Find файл" onPress={find} />
+        <Button title="Найти файл" onPress={find} />
+        <Button title="Удалить файл" onPress={deleteF} />
       </ScrollView>
     </CommonScreenLayout>
   );

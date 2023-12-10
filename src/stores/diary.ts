@@ -25,10 +25,16 @@ interface Summary extends DateInterface {
   notes: Notes;
 }
 
+interface Date {
+  year: number;
+  month: number;
+}
+
 export interface DiaryState {
   dayReports: DayReports[];
   monthlyPlan: MonthlyPlan;
   summary: Summary;
+  date: Date;
 }
 
 interface MonthPlansProps {

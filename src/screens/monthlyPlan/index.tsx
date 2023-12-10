@@ -32,11 +32,15 @@ const StyledTextarea = styled(Textarea)`
   min-height: 200px;
 `;
 
+const getStringMonth = (month: number) => {
+  return dayjs(`1-${month}`, 'D-M').format('MMMM');
+};
+
 export const MonthlyPlan: FC = () => {
-  const {setMonthPlans} = useStore().diaryStore;
+  const {setMonthPlans, state} = useStore().diaryStore;
   const {goBack} = useNavigation();
 
-  const currentMonth = dayjs().format('MMMM');
+  const currentMonth = getStringMonth(state?.date.month ?? 0);
 
   const [reading, setReading] = useState('');
   const [memorization, setMemorization] = useState('');

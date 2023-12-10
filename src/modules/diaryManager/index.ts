@@ -1,10 +1,13 @@
+import {cloneDeep} from 'lodash';
 import {DiaryState} from '../../stores/diary';
 import {FileStorage, emptyFileContent} from '../fileStorage';
+import {getMonth, getYear} from '../../utils/dates';
 
 const defaultMonthContent: DiaryState = {
   dayReports: [],
   monthlyPlan: {createdAt: 0, updatedAt: 0, notes: {}},
   summary: {createdAt: 0, updatedAt: 0, notes: {}},
+  date: {year: 0, month: 0},
 };
 
 export class DiaryManager {
@@ -21,10 +24,13 @@ export class DiaryManager {
   }
 
   public async createMonth(id: string) {
-    const content = JSON.stringify(defaultMonthContent);
-    await this.setMonth(id, JSON.stringify(defaultMonthContent));
+    const content = cloneDeep(defaultMonthContent);
+    content.date.year = getYear();
+    content.date.month = getMonth();
+    const contentString = JSON.stringify(content);
+    await this.setMonth(id, contentString);
 
-    return content;
+    return contentString;
   }
 
   public async getMonth(id: string): Promise<DiaryState> {
