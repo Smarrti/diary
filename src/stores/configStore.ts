@@ -3,7 +3,7 @@ import {makeAutoObservable} from 'mobx';
 export class ConfigStore {
   rootStore;
   isAppInitialized = false;
-  isOnboarded = true;
+  isOnboarded = false;
 
   constructor(rootStore: any) {
     makeAutoObservable(this, {rootStore: false});

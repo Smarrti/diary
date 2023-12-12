@@ -8,18 +8,16 @@ import {HorizontalPaddingScreen} from '../../styles/constants';
 import {IconButton} from '../../ui/buttons/iconButton';
 import {useStore} from '../../stores';
 import {CommonScreenLayout} from '../../ui/layout/commonScreenLayout';
+import {Button} from '../../ui/buttons/button';
 
 export const OnboardingScreen: FC = ({}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatlistRef = createRef<CarouselRefProps>();
   const {setOnboarded} = useStore().configStore;
 
-  const handleSlidePress = () => {
-    if (currentIndex + 1 === carouselContent.length) {
-      setOnboarded();
-      return;
-    }
+  const isLastSlide = currentIndex + 1 === carouselContent.length;
 
+  const handleSlidePress = () => {
     if (!flatlistRef.current) {
       return;
     }
@@ -55,7 +53,11 @@ export const OnboardingScreen: FC = ({}) => {
         />
       </Main>
       <Footer>
-        <IconButton onPress={handleSlidePress} />
+        {isLastSlide ? (
+          <FinishButton onPress={setOnboarded}>Войти</FinishButton>
+        ) : (
+          <IconButton onPress={handleSlidePress} />
+        )}
       </Footer>
     </CommonScreenLayout>
   );
@@ -75,4 +77,8 @@ const Footer = styled.View`
   padding: 0 ${HorizontalPaddingScreen}px;
   height: 60px;
   align-items: flex-end;
+`;
+
+const FinishButton = styled(Button)`
+  align-self: stretch;
 `;
