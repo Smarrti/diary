@@ -7,9 +7,9 @@ import {Textarea} from '../../ui/textarea';
 import {Button} from '../../ui/buttons/button';
 import {defaultColors} from '../../styles/colors';
 import dayjs from 'dayjs';
-import {KeyboardAvoidingView, Platform} from 'react-native';
 import {useStore} from '../../stores';
 import {useNavigation} from '@react-navigation/native';
+import {KeyboardView} from '../../ui/keyboardView';
 
 const Root = styled.ScrollView`
   padding: 22px ${HorizontalPaddingScreen}px;
@@ -59,9 +59,7 @@ export const MonthlyPlan: FC = () => {
 
   return (
     <CommonScreenLayout>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={100}>
+      <KeyboardView>
         <Root>
           <Title fontSize={fontSizes.fs34} fontWeight={500}>
             Мои планы на {currentMonth}
@@ -110,7 +108,7 @@ export const MonthlyPlan: FC = () => {
             <Button onPress={handleSubmit}>Сохранить</Button>
           </FormField>
         </Root>
-      </KeyboardAvoidingView>
+      </KeyboardView>
     </CommonScreenLayout>
   );
 };
