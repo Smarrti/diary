@@ -44,10 +44,17 @@ interface MonthPlansProps {
   plans: string;
 }
 
+export interface SelectDate {
+  day: number;
+  month: number;
+  year: number;
+}
+
 export class DiaryStore {
   rootStore;
   stateId: string | undefined = undefined;
   state: DiaryState | undefined = undefined;
+  selectDate: SelectDate | undefined = undefined;
 
   constructor(rootStore: any) {
     makeAutoObservable(this, {rootStore: false});
@@ -100,4 +107,8 @@ export class DiaryStore {
 
     this.setState(this.stateId, cloneState);
   };
+
+  public setSelectDate(date: SelectDate) {
+    this.selectDate = date;
+  }
 }

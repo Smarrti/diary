@@ -2,17 +2,22 @@ import React, {FC} from 'react';
 import {ButtonWrapper} from './buttonWrapper';
 import styled from 'styled-components/native';
 import {defaultColors} from '../../styles/colors';
-import {TouchableWithoutFeedbackProps} from 'react-native';
+import {
+  StyleProp,
+  TouchableWithoutFeedbackProps,
+  ViewStyle,
+} from 'react-native';
 import {Text} from '../text';
 
 interface Props extends TouchableWithoutFeedbackProps {
   children: string;
+  containerStyle?: StyleProp<ViewStyle>;
 }
 
-export const Button: FC<Props> = ({children, ...rest}) => {
+export const Button: FC<Props> = ({children, containerStyle, ...rest}) => {
   return (
     <ButtonWrapper {...rest}>
-      <Container>
+      <Container style={containerStyle}>
         <Text color={defaultColors.whiteText}>{children}</Text>
       </Container>
     </ButtonWrapper>

@@ -1,6 +1,6 @@
 export const defaultColors = {
   primary: '#1308FE',
-  background: ['#FFFFFF'],
+  background: ['#FFFFFF', '#FAFAFA'],
   disabled: '#AAB2B7',
 
   text: '#000000',
@@ -10,4 +10,9 @@ export const defaultColors = {
   borders: '#dfdfdf',
 
   transparent: 'transparent',
+
+  shadow: {
+    android: '',
+    ios: 'box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);',
+  },
 };

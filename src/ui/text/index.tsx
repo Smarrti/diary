@@ -9,6 +9,7 @@ interface Props extends TextProps {
   color?: string;
   fontWeight?: number;
   lineHeight?: string;
+  italic?: boolean;
 }
 
 export const Text: FC<Props> = ({
@@ -17,6 +18,7 @@ export const Text: FC<Props> = ({
   color = defaultColors.text,
   fontWeight = fontWeights.fw400,
   lineHeight,
+  italic = false,
   ...rest
 }) => {
   return (
@@ -25,6 +27,7 @@ export const Text: FC<Props> = ({
       color={color}
       fontWeight={fontWeight}
       lineHeight={lineHeight}
+      italic={italic}
       {...rest}>
       {children}
     </StyledText>
@@ -36,10 +39,11 @@ const StyledText = styled.Text<{
   color: string;
   fontWeight: number;
   lineHeight?: string;
+  italic: boolean;
 }>`
   color: ${({color}) => color};
   font-size: ${({fontSize}) => fontSize}px;
   font-weight: ${({fontWeight}) => fontWeight};
   ${({lineHeight}) => (lineHeight ? `line-height: ${lineHeight}px` : '')};
-  font-family: Roboto;
+  font-family: ${({italic}) => (italic ? 'Roboto Italic' : 'Roboto')};
 `;
