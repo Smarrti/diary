@@ -5,6 +5,7 @@ import {Routes} from './routes';
 import {defaultScreenOptions} from './common';
 import {MonthlyPlan} from '../screens/monthlyPlan';
 import {DiaryNavigatorType} from './navigationTypes';
+import {DayNotes} from '../screens/dayNotes';
 
 const DiaryStack = createNativeStackNavigator<DiaryNavigatorType>();
 
@@ -21,6 +22,11 @@ export const DiaryNavigator: FC = ({}) => {
         component={MonthlyPlan}
         name={Routes.MonthlyPlan}
         options={{headerTitle: 'Планы месяца'}}
+      />
+      <DiaryStack.Screen
+        component={DayNotes}
+        name={Routes.DayNotes}
+        options={{headerTitle: 'Заметки'}}
       />
     </DiaryStack.Navigator>
   );

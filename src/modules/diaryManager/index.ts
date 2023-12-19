@@ -1,14 +1,7 @@
-import {cloneDeep} from 'lodash';
 import {DiaryState} from '../../stores/diary';
 import {FileStorage, emptyFileContent} from '../fileStorage';
 import {getMonth, getYear} from '../../utils/dates';
-
-const defaultMonthContent: DiaryState = {
-  dayReports: [],
-  monthlyPlan: {createdAt: 0, updatedAt: 0, notes: {}},
-  summary: {createdAt: 0, updatedAt: 0, notes: {}},
-  date: {year: 0, month: 0},
-};
+import {getEmptyMonth} from '../../utils/stateContent';
 
 export class DiaryManager {
   private static instance: DiaryManager;
@@ -24,7 +17,7 @@ export class DiaryManager {
   }
 
   public async createMonth(id: string) {
-    const content = cloneDeep(defaultMonthContent);
+    const content = getEmptyMonth();
     content.date.year = getYear();
     content.date.month = getMonth();
     const contentString = JSON.stringify(content);

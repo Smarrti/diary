@@ -2,6 +2,7 @@ import {makeAutoObservable} from 'mobx';
 import {DiaryManager} from '../modules/diaryManager';
 import {cloneDeep} from 'lodash';
 import {getTime} from '../utils/dates';
+import {getEmptyDayNotes} from '../utils/stateContent';
 
 interface DateInterface {
   createdAt: number;
@@ -12,7 +13,7 @@ interface Notes {
   [key: string]: string;
 }
 
-interface DayReports extends DateInterface {
+export interface DayReports extends DateInterface {
   dayNumber: number;
   notes: Notes;
 }
@@ -40,6 +41,12 @@ export interface DiaryState {
 interface MonthPlansProps {
   reading: string;
   memorization: string;
+  pray: string;
+  plans: string;
+}
+
+interface DayNotesProps {
+  notes: string;
   pray: string;
   plans: string;
 }
@@ -107,6 +114,38 @@ export class DiaryStore {
 
     this.setState(this.stateId, cloneState);
   };
+
+  public getDayNotes = async (day: number) => {
+    const index = this.state?.dayReports.findIndex(
+      dayReport => dayReport.dayNumber === day,
+    );
+
+    const cloneState = this.getCloneState()!;
+
+    if (index === -1 || index === undefined) {
+      const newIndex = cloneState?.dayReports.push(getEmptyDayNotes(day)) - 1;
+      this.setState(this.stateId!, cloneState);
+      return this.state?.dayReports[newIndex];
+    }
+
+    return this.state?.dayReports[index];
+  };
+
+  // public setDayNotes = async ({notes, pray, plans}: DayNotesProps) => {
+  //   const cloneState = this.getCloneState();
+
+  //   if (!cloneState || !this.stateId) {
+  //     return;
+  //   }
+
+  //   cloneState.dayReports.updatedAt = getTime();
+  //   cloneState.monthlyPlan.notes.reading = reading;
+  //   cloneState.monthlyPlan.notes.memorization = memorization;
+  //   cloneState.monthlyPlan.notes.pray = pray;
+  //   cloneState.monthlyPlan.notes.plans = plans;
+
+  //   this.setState(this.stateId, cloneState);
+  // };
 
   public setSelectDate(date: SelectDate) {
     this.selectDate = date;
