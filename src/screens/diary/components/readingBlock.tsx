@@ -5,6 +5,10 @@ import {defaultColors} from '../../../styles/colors';
 import {fontSizes} from '../../../styles/constants';
 import {Button} from '../../../ui/buttons/button';
 import {View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {Routes} from '../../../navigation/routes';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {DiaryNavigatorType} from '../../../navigation/navigationTypes';
 
 interface IProps {}
 
@@ -25,6 +29,7 @@ const PlanHint = styled(Text)`
 `;
 
 const Quote = styled.View`
+  border-bottom-left-radius: 12px;
   background-color: ${defaultColors.background[1]};
   border-top-width: 1px;
   border-top-color: ${defaultColors.borders};
@@ -39,6 +44,7 @@ const StyledButton = styled(Button)`
   position: absolute;
   right: 0;
   transform: translateY(-18px);
+  ${defaultColors.shadow.ios}
 `;
 
 const buttonContainerStyle = {
@@ -47,6 +53,9 @@ const buttonContainerStyle = {
 };
 
 export const ReadingBlock: FC<IProps> = ({}) => {
+  const {navigate} =
+    useNavigation<NativeStackNavigationProp<DiaryNavigatorType>>();
+
   return (
     <Root>
       <Plan>
@@ -67,7 +76,9 @@ export const ReadingBlock: FC<IProps> = ({}) => {
         <Text fontSize={fontSizes.fs14}>Мф. 21, 9</Text>
       </Quote>
       <View>
-        <StyledButton containerStyle={buttonContainerStyle}>
+        <StyledButton
+          containerStyle={buttonContainerStyle}
+          onPress={() => navigate(Routes.DayNotes)}>
           Заполнить день
         </StyledButton>
       </View>

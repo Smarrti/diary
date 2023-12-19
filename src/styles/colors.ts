@@ -13,6 +13,6 @@ export const defaultColors = {
 
   shadow: {
     android: '',
-    ios: 'box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);',
+    ios: 'box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);',
   },
 };
