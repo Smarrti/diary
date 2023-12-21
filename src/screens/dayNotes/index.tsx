@@ -12,6 +12,7 @@ import {HorizontalPaddingScreen, fontSizes} from '../../styles/constants';
 import {Textarea} from '../../ui/textarea';
 import {Text} from '../../ui/text';
 import {Button} from '../../ui/buttons/button';
+import {useNavigation} from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<DiaryNavigatorType, Routes.DayNotes>;
 
@@ -43,8 +44,8 @@ const PrayTextarea = styled(StyledTextarea)`
 `;
 
 export const DayNotes: FC<Props> = ({navigation}) => {
-  const {selectDate, state} = useStore().diaryStore;
-  console.log(state);
+  const {selectDate, setDayNotes, getDayNotes} = useStore().diaryStore;
+  const {goBack} = useNavigation();
 
   useEffect(() => {
     if (selectDate) {
@@ -52,12 +53,33 @@ export const DayNotes: FC<Props> = ({navigation}) => {
     }
   }, [navigation, selectDate]);
 
+  useEffect(() => {
+    const asyncEffect = async () => {
+      if (!selectDate) {
+        return;
+      }
+
+      const dayNotes = await getDayNotes(selectDate?.day);
+      setNotes(dayNotes?.notes.notes ?? '');
+      setPray(dayNotes?.notes.pray ?? '');
+      setPlans(dayNotes?.notes.plans ?? '');
+    };
+
+    asyncEffect();
+  }, [getDayNotes, selectDate]);
+
   const [notes, setNotes] = useState('');
   const [pray, setPray] = useState('');
   const [plans, setPlans] = useState('');
 
   const handleSubmit = () => {
-    console.log(notes, pray, plans);
+    if (!selectDate) {
+      return;
+    }
+
+    setDayNotes({dayNumber: selectDate.day, notes, pray, plans}).finally(() =>
+      goBack(),
+    );
   };
 
   return (

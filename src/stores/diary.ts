@@ -131,21 +131,32 @@ export class DiaryStore {
     return this.state?.dayReports[index];
   };
 
-  // public setDayNotes = async ({notes, pray, plans}: DayNotesProps) => {
-  //   const cloneState = this.getCloneState();
+  public setDayNotes = async ({
+    dayNumber,
+    notes,
+    pray,
+    plans,
+  }: DayNotesProps & {dayNumber: number}) => {
+    const cloneState = this.getCloneState();
 
-  //   if (!cloneState || !this.stateId) {
-  //     return;
-  //   }
+    if (!cloneState || !this.stateId) {
+      return;
+    }
 
-  //   cloneState.dayReports.updatedAt = getTime();
-  //   cloneState.monthlyPlan.notes.reading = reading;
-  //   cloneState.monthlyPlan.notes.memorization = memorization;
-  //   cloneState.monthlyPlan.notes.pray = pray;
-  //   cloneState.monthlyPlan.notes.plans = plans;
+    const dayIndex = cloneState.dayReports.findIndex(
+      day => day.dayNumber === dayNumber,
+    );
+    if (dayIndex === -1) {
+      return;
+    }
 
-  //   this.setState(this.stateId, cloneState);
-  // };
+    cloneState.dayReports[dayIndex].updatedAt = getTime();
+    cloneState.dayReports[dayIndex].notes.notes = notes;
+    cloneState.dayReports[dayIndex].notes.pray = pray;
+    cloneState.dayReports[dayIndex].notes.plans = plans;
+
+    await this.setState(this.stateId, cloneState);
+  };
 
   public setSelectDate(date: SelectDate) {
     this.selectDate = date;
