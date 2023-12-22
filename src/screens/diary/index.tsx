@@ -13,6 +13,7 @@ import {generateDiaryId} from '../../utils/generateDiaryId';
 import {SelectDate} from '../../stores/diary';
 import {ReadingBlock} from './components/readingBlock';
 import {Thought} from './components/thought';
+import {DayNotesBlock} from './components/dayNotesBlock';
 
 type Props = NativeStackScreenProps<DiaryNavigatorType, Routes.Diary>;
 
@@ -41,6 +42,7 @@ export const DiaryScreen: FC<Props> = ({navigation}) => {
         <ReadingBlock />
         <Thought />
 
+        <DayNotesBlock />
         <Button title="План на месяц" onPress={handleButton} />
       </ScrollView>
     </CommonScreenLayout>

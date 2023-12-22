@@ -9,7 +9,7 @@ interface DateInterface {
   updatedAt: number;
 }
 
-interface Notes {
+export interface Notes {
   [key: string]: string;
 }
 

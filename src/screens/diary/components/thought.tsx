@@ -5,7 +5,7 @@ import {Text} from '../../../ui/text';
 interface IProps {}
 
 const Root = styled.View`
-  margin: 40px 24px;
+  margin: 40px 24px 20px;
 `;
 
 export const Thought: FC<IProps> = ({}) => {

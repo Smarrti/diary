@@ -9,15 +9,13 @@ import {useNavigation} from '@react-navigation/native';
 import {Routes} from '../../../navigation/routes';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {DiaryNavigatorType} from '../../../navigation/navigationTypes';
+import {ShadowBlock} from '../../../ui/shadowBlock';
 
 interface IProps {}
 
-const Root = styled.View`
-  background-color: ${defaultColors.background[0]};
+const Root = styled(ShadowBlock)`
   border-radius: 12px;
-  margin: 28px 0;
   transform: translateX(16px);
-  ${defaultColors.shadow.ios}
 `;
 
 const Plan = styled.View`
