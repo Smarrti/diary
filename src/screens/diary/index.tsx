@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import {Button, ScrollView} from 'react-native';
 import {CommonScreenLayout} from '../../ui/layout/commonScreenLayout';
 import {Routes} from '../../navigation/routes';
@@ -10,10 +10,11 @@ import {FileStorage} from '../../modules/fileStorage';
 import {useStore} from '../../stores';
 import dayjs from 'dayjs';
 import {generateDiaryId} from '../../utils/generateDiaryId';
-import {SelectDate} from '../../stores/diary';
+import {DayReports, SelectDate} from '../../stores/diary';
 import {ReadingBlock} from './components/readingBlock';
 import {Thought} from './components/thought';
 import {DayNotesBlock} from './components/dayNotesBlock';
+import {useFocusEffect} from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<DiaryNavigatorType, Routes.Diary>;
 
@@ -24,7 +25,26 @@ const getTitle = (date: SelectDate) => {
 };
 
 export const DiaryScreen: FC<Props> = ({navigation}) => {
-  const {selectDate} = useStore().diaryStore;
+  const {getDayNotes, selectDate} = useStore().diaryStore;
+
+  const [dayNotes, setDayNotes] = useState<DayReports | undefined>();
+
+  const setNotes = useCallback(async () => {
+    if (!selectDate) {
+      return;
+    }
+
+    const dayNotesFromStore = await getDayNotes(selectDate.day);
+    setDayNotes(dayNotesFromStore);
+  }, [getDayNotes, selectDate]);
+
+  useEffect(() => {
+    setNotes();
+  }, [setNotes]);
+
+  useFocusEffect(() => {
+    setNotes();
+  });
 
   useEffect(() => {
     if (selectDate) {
@@ -42,7 +62,7 @@ export const DiaryScreen: FC<Props> = ({navigation}) => {
         <ReadingBlock />
         <Thought />
 
-        <DayNotesBlock />
+        {!!dayNotes && <DayNotesBlock notes={dayNotes.notes} />}
         <Button title="План на месяц" onPress={handleButton} />
       </ScrollView>
     </CommonScreenLayout>

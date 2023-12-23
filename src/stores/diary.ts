@@ -124,7 +124,7 @@ export class DiaryStore {
 
     if (index === -1 || index === undefined) {
       const newIndex = cloneState?.dayReports.push(getEmptyDayNotes(day)) - 1;
-      this.setState(this.stateId!, cloneState);
+      await this.setState(this.stateId!, cloneState);
       return this.state?.dayReports[newIndex];
     }
 

@@ -1,6 +1,5 @@
-import React, {FC, useEffect, useState} from 'react';
-import {useStore} from '../../../../stores';
-import {DayReports} from '../../../../stores/diary';
+import React, {FC} from 'react';
+import {Notes} from '../../../../stores/diary';
 import {ShadowBlock} from '../../../../ui/shadowBlock';
 import styled from 'styled-components/native';
 import {DayNotes} from './dayNotes';
@@ -10,33 +9,16 @@ const StyledShadowBlock = styled(ShadowBlock)`
   padding: 24px;
 `;
 
-export const DayNotesBlock: FC = ({}) => {
-  const {getDayNotes, selectDate} = useStore().diaryStore;
-  const [dayNotes, setDayNotes] = useState<DayReports | undefined>();
+interface Props {
+  notes: Notes;
+}
 
-  useEffect(() => {
-    const asyncEffect = async () => {
-      if (!selectDate) {
-        return;
-      }
-
-      const dayNotesFromStore = await getDayNotes(selectDate.day);
-      dayNotesFromStore?.notes;
-      setDayNotes(dayNotesFromStore);
-    };
-
-    asyncEffect();
-  }, [getDayNotes, selectDate]);
-
-  const hasDayNotes = !!(
-    dayNotes &&
-    dayNotes.notes &&
-    (dayNotes.notes.notes || dayNotes.notes.pray || dayNotes.notes.plans)
-  );
+export const DayNotesBlock: FC<Props> = ({notes}) => {
+  const hasDayNotes = !!(notes.notes || notes.pray || notes.plans);
 
   return (
     <StyledShadowBlock>
-      {hasDayNotes ? <DayNotes notes={dayNotes.notes} /> : <EmptyNotes />}
+      {hasDayNotes ? <DayNotes notes={notes} /> : <EmptyNotes />}
     </StyledShadowBlock>
   );
 };
