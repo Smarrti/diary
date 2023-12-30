@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {TextProps} from 'react-native';
 import styled from 'styled-components/native';
-import {fontSizes, fontWeights} from '../../styles/constants';
+import {fontSizes, fontWeights, fonts} from '../../styles/constants';
 import {defaultColors} from '../../styles/colors';
 
 interface Props extends TextProps {
@@ -45,5 +45,5 @@ const StyledText = styled.Text<{
   font-size: ${({fontSize}) => fontSize}px;
   font-weight: ${({fontWeight}) => fontWeight};
   ${({lineHeight}) => (lineHeight ? `line-height: ${lineHeight}px` : '')};
-  font-family: ${({italic}) => (italic ? 'Roboto Italic' : 'Roboto')};
+  font-family: ${({italic}) => (italic ? fonts.mainItalic : fonts.main)};
 `;

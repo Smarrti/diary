@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {TextInputProps} from 'react-native';
 import styled from 'styled-components/native';
-import {fontSizes, fontWeights} from '../../styles/constants';
+import {fontSizes, fontWeights, fonts} from '../../styles/constants';
 import {defaultColors} from '../../styles/colors';
 
 interface IProps extends TextInputProps {
@@ -17,7 +17,7 @@ const Input = styled.TextInput<{
   fontWeight: number;
   lineHeight?: string;
 }>`
-  font-family: Roboto;
+  font-family: ${fonts.main};
   color: ${({color}) => color};
   font-size: ${({fontSize}) => fontSize}px;
   font-weight: ${({fontWeight}) => fontWeight};

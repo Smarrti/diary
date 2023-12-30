@@ -42,7 +42,7 @@ export const DiaryNavigator: FC = ({}) => {
       <DiaryStack.Screen
         component={CalendarScreen}
         name={Routes.Calendar}
-        options={{headerTitle: 'Каледарь'}}
+        options={{headerTitle: 'Календарь'}}
       />
     </DiaryStack.Navigator>
   );

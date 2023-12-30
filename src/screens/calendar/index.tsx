@@ -7,6 +7,9 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {DiaryNavigatorType} from '../../navigation/navigationTypes';
 import {generateDiaryId} from '../../utils/generateDiaryId';
 import {Routes} from '../../navigation/routes';
+import {reaction} from 'mobx';
+import {defaultColors} from '../../styles/colors';
+import {fonts} from '../../styles/constants';
 
 interface IProps {}
 
@@ -14,32 +17,49 @@ export const CalendarScreen: FC<IProps> = ({}) => {
   const {navigate} =
     useNavigation<NativeStackNavigationProp<DiaryNavigatorType>>();
 
-  const {selectDate, setSelectDate, getDayNotes, getStateFromManager} =
-    useStore().diaryStore;
+  const {diaryStore} = useStore();
+
   const selectedDateString = dayjs({
-    day: selectDate?.day,
-    month: selectDate?.month! - 1,
-    year: selectDate?.year,
+    day: diaryStore.selectDate?.day,
+    month: diaryStore.selectDate?.month! - 1,
+    year: diaryStore.selectDate?.year,
   }).format('YYYY-MM-DD');
 
   const onSelect = async (date: DateData) => {
     const {day, month, year} = date;
     const id = generateDiaryId(month, year);
-    await getStateFromManager(id);
+    await diaryStore.getStateFromManager(id);
 
-    setSelectDate({day, month, year});
-    getDayNotes(day);
-    navigate(Routes.Diary);
+    diaryStore.setSelectDate({day, month, year});
   };
+
+  reaction(
+    () => diaryStore.selectDate,
+    () => {
+      navigate(Routes.Diary);
+    },
+  );
 
   return (
     <Calendar
       onDayPress={onSelect}
+      current={selectedDateString}
+      enableSwipeMonths
       markedDates={{
         [selectedDateString]: {
           selected: true,
           disableTouchEvent: true,
         },
+      }}
+      theme={{
+        selectedDayBackgroundColor: defaultColors.primary,
+        textDayFontFamily: fonts.main,
+        textMonthFontFamily: fonts.main,
+        textDayHeaderFontFamily: fonts.main,
+        textDayFontWeight: '400',
+        textMonthFontWeight: '400',
+        textDayHeaderFontWeight: '400',
+        arrowColor: defaultColors.primary,
       }}
     />
   );

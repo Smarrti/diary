@@ -1,5 +1,10 @@
 export const HorizontalPaddingScreen = 32;
 
+export const fonts = {
+  main: 'Roboto',
+  mainItalic: 'Roboto Italic',
+};
+
 export const fontSizes = {
   fs12: '12',
   fs14: '14',
