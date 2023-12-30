@@ -6,6 +6,7 @@ export enum Routes {
   Diary = 'diary',
   MonthlyPlan = 'monthlyPlan',
   DayNotes = 'dayNotes',
+  Calendar = 'calendar',
 
   HandleStart = 'handleStart',
 }

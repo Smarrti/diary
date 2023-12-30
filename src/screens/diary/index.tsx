@@ -43,7 +43,7 @@ export const DiaryScreen: FC<Props> = ({navigation}) => {
   }, [setNotes]);
 
   useFocusEffect(() => {
-    setNotes();
+    setNotes(); //TODO: убрать костыль
   });
 
   useEffect(() => {
