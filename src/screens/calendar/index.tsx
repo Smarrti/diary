@@ -10,6 +10,7 @@ import {Routes} from '../../navigation/routes';
 import {reaction} from 'mobx';
 import {defaultColors} from '../../styles/colors';
 import {fonts} from '../../styles/constants';
+import {Alert} from 'react-native';
 
 interface IProps {}
 
@@ -27,6 +28,14 @@ export const CalendarScreen: FC<IProps> = ({}) => {
 
   const onSelect = async (date: DateData) => {
     const {day, month, year} = date;
+
+    if (
+      dayjs().isBefore({day: date.day, month: date.month - 1, year: date.year})
+    ) {
+      Alert.alert('Календарь', 'Нет возможности открыть более позднюю дату');
+      return;
+    }
+
     const id = generateDiaryId(month, year);
     await diaryStore.getStateFromManager(id);
 
