@@ -14,6 +14,7 @@ import {iconEnum} from '../ui/icon/list';
 import {ButtonWrapper} from '../ui/buttons/buttonWrapper';
 import {useNavigation} from '@react-navigation/native';
 import {CalendarScreen} from '../screens/calendar';
+import {SummaryScreen} from '../screens/summary';
 
 const DiaryStack = createNativeStackNavigator<DiaryNavigatorType>();
 
@@ -43,6 +44,11 @@ export const DiaryNavigator: FC = ({}) => {
         component={CalendarScreen}
         name={Routes.Calendar}
         options={{headerTitle: 'Календарь'}}
+      />
+      <DiaryStack.Screen
+        component={SummaryScreen}
+        name={Routes.Summary}
+        options={{headerTitle: 'Итоги месяца'}}
       />
     </DiaryStack.Navigator>
   );

@@ -31,17 +31,23 @@ const Quote = styled.View`
   background-color: ${defaultColors.background[1]};
   border-top-width: 1px;
   border-top-color: ${defaultColors.borders};
-  padding: 20px 35px 20px 26px;
+  padding: 20px 35px 28px 26px;
 `;
 
 const QuoteText = styled(Text)`
   margin-bottom: 8px;
 `;
 
-const StyledButton = styled(Button)`
+const ButtonsContainer = styled.View`
+  flex-direction: row;
   position: absolute;
   right: 0;
-  transform: translateY(-18px);
+  bottom: 0;
+  transform: translateY(18px);
+`;
+
+const StyledButton = styled(Button)<{isLast?: boolean}>`
+  margin-left: 8px;
   ${defaultColors.shadow.ios}
 `;
 
@@ -73,13 +79,19 @@ export const ReadingBlock: FC<IProps> = ({}) => {
         </QuoteText>
         <Text fontSize={fontSizes.fs14}>Мф. 21, 9</Text>
       </Quote>
-      <View>
+      <ButtonsContainer>
+        <StyledButton
+          containerStyle={buttonContainerStyle}
+          onPress={() => navigate(Routes.Summary)}
+          type="secondary">
+          Подвести итоги
+        </StyledButton>
         <StyledButton
           containerStyle={buttonContainerStyle}
           onPress={() => navigate(Routes.DayNotes)}>
           Заполнить день
         </StyledButton>
-      </View>
+      </ButtonsContainer>
     </Root>
   );
 };

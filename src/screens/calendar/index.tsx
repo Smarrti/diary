@@ -69,6 +69,7 @@ export const CalendarScreen: FC<IProps> = ({}) => {
         textMonthFontWeight: '400',
         textDayHeaderFontWeight: '400',
         arrowColor: defaultColors.primary,
+        todayTextColor: defaultColors.primary,
       }}
     />
   );

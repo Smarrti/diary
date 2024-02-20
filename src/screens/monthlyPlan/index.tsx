@@ -6,10 +6,10 @@ import styled from 'styled-components/native';
 import {Textarea} from '../../ui/textarea';
 import {Button} from '../../ui/buttons/button';
 import {defaultColors} from '../../styles/colors';
-import dayjs from 'dayjs';
 import {useStore} from '../../stores';
 import {useNavigation} from '@react-navigation/native';
 import {KeyboardView} from '../../ui/keyboardView';
+import {getStringMonth} from '../../utils/dates';
 
 const Root = styled.ScrollView`
   padding: 22px ${HorizontalPaddingScreen}px;
@@ -31,10 +31,6 @@ const StyledTextarea = styled(Textarea)`
   margin-top: 8px;
   min-height: 200px;
 `;
-
-const getStringMonth = (month: number) => {
-  return dayjs(`1-${month}`, 'D-M').format('MMMM');
-};
 
 export const MonthlyPlan: FC = () => {
   const {setMonthPlans, state} = useStore().diaryStore;
@@ -103,7 +99,7 @@ export const MonthlyPlan: FC = () => {
 
           <FormField>
             <Disclaimer color={defaultColors.grayText}>
-              В течении месяца вы можете редактировать планы
+              Вы всегда можете вернуться, чтобы обновить свои планы
             </Disclaimer>
             <Button onPress={handleSubmit}>Сохранить</Button>
           </FormField>
