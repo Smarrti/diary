@@ -4,12 +4,13 @@ import {Text} from '../../../ui/text';
 import {defaultColors} from '../../../styles/colors';
 import {fontSizes} from '../../../styles/constants';
 import {Button} from '../../../ui/buttons/button';
-import {View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Routes} from '../../../navigation/routes';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {DiaryNavigatorType} from '../../../navigation/navigationTypes';
 import {ShadowBlock} from '../../../ui/shadowBlock';
+import {isLastDayInMonth} from '../../../utils/dates';
+import {useStore} from '../../../stores';
 
 interface IProps {}
 
@@ -59,6 +60,12 @@ const buttonContainerStyle = {
 export const ReadingBlock: FC<IProps> = ({}) => {
   const {navigate} =
     useNavigation<NativeStackNavigationProp<DiaryNavigatorType>>();
+  const {selectDate} = useStore().diaryStore;
+
+  const isLastDay = isLastDayInMonth(
+    selectDate?.day ?? 0,
+    (selectDate?.month ?? 0) - 1,
+  );
 
   return (
     <Root>
@@ -80,12 +87,14 @@ export const ReadingBlock: FC<IProps> = ({}) => {
         <Text fontSize={fontSizes.fs14}>Мф. 21, 9</Text>
       </Quote>
       <ButtonsContainer>
-        <StyledButton
-          containerStyle={buttonContainerStyle}
-          onPress={() => navigate(Routes.Summary)}
-          type="secondary">
-          Подвести итоги
-        </StyledButton>
+        {isLastDay && (
+          <StyledButton
+            containerStyle={buttonContainerStyle}
+            onPress={() => navigate(Routes.Summary)}
+            type="secondary">
+            Подвести итоги
+          </StyledButton>
+        )}
         <StyledButton
           containerStyle={buttonContainerStyle}
           onPress={() => navigate(Routes.DayNotes)}>
