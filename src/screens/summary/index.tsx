@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import {CommonScreenLayout} from '../../ui/layout/commonScreenLayout';
-import {KeyboardView} from '../../ui/keyboardView';
 import styled from 'styled-components/native';
 import {Text} from '../../ui/text';
 import {HorizontalPaddingScreen, fontSizes} from '../../styles/constants';
@@ -8,10 +7,10 @@ import {getStringMonth} from '../../utils/dates';
 import {useStore} from '../../stores';
 import {Textarea} from '../../ui/textarea';
 import {Button} from '../../ui/buttons/button';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
-interface IProps {}
-
-const Root = styled(KeyboardView)`
+const StyledKeyboardView = styled(KeyboardAwareScrollView)`
+  flex: 1;
   padding: 22px ${HorizontalPaddingScreen}px;
 `;
 
@@ -20,11 +19,11 @@ const Title = styled(Text)`
 `;
 
 const StyledTextarea = styled(Textarea)`
-  min-height: 250;
   margin-bottom: 16px;
+  min-height: 400px;
 `;
 
-export const SummaryScreen: FC<IProps> = ({}) => {
+export const SummaryScreen: FC = ({}) => {
   const {state} = useStore().diaryStore;
   const currentMonth = getStringMonth(state?.date.month ?? 0);
 
@@ -32,13 +31,13 @@ export const SummaryScreen: FC<IProps> = ({}) => {
 
   return (
     <CommonScreenLayout>
-      <Root>
+      <StyledKeyboardView>
         <Title fontSize={fontSizes.fs34} fontWeight={500}>
           Итоги за {currentMonth}
         </Title>
         <StyledTextarea />
         <Button onPress={handleSubmit}>Сохранить</Button>
-      </Root>
+      </StyledKeyboardView>
     </CommonScreenLayout>
   );
 };
