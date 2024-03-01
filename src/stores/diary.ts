@@ -112,7 +112,7 @@ export class DiaryStore {
     cloneState.monthlyPlan.notes.pray = pray;
     cloneState.monthlyPlan.notes.plans = plans;
 
-    this.setState(this.stateId, cloneState);
+    await this.setState(this.stateId, cloneState);
   };
 
   public getDayNotes = async (day: number) => {
