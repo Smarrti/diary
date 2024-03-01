@@ -161,4 +161,24 @@ export class DiaryStore {
   public setSelectDate(date: SelectDate) {
     this.selectDate = date;
   }
+
+  public getSummary = () => {
+    const cloneState = this.getCloneState();
+
+    return cloneState?.summary;
+  };
+
+  public setSummary = async (summary: string) => {
+    const cloneState = this.getCloneState();
+
+    if (!cloneState || !this.stateId) {
+      return;
+    }
+
+    cloneState.summary.createdAt = getTime();
+    cloneState.summary.updatedAt = getTime();
+    cloneState.summary.notes.notes = summary;
+
+    await this.setState(this.stateId, cloneState);
+  };
 }

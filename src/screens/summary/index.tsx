@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {CommonScreenLayout} from '../../ui/layout/commonScreenLayout';
 import styled from 'styled-components/native';
 import {Text} from '../../ui/text';
@@ -8,6 +8,7 @@ import {useStore} from '../../stores';
 import {Textarea} from '../../ui/textarea';
 import {Button} from '../../ui/buttons/button';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useNavigation} from '@react-navigation/native';
 
 const StyledKeyboardView = styled(KeyboardAwareScrollView)`
   flex: 1;
@@ -24,10 +25,21 @@ const StyledTextarea = styled(Textarea)`
 `;
 
 export const SummaryScreen: FC = ({}) => {
-  const {state} = useStore().diaryStore;
+  const {state, setSummary, getSummary} = useStore().diaryStore;
   const currentMonth = getStringMonth(state?.date.month ?? 0);
 
-  const handleSubmit = () => {};
+  const {goBack} = useNavigation();
+
+  const [summaryText, setSummaryText] = useState('');
+
+  useEffect(() => {
+    const summary = getSummary();
+    setSummaryText(summary?.notes.notes ?? '');
+  }, [getSummary]);
+
+  const handleSubmit = () => {
+    setSummary(summaryText).finally(() => goBack());
+  };
 
   return (
     <CommonScreenLayout>
@@ -35,7 +47,7 @@ export const SummaryScreen: FC = ({}) => {
         <Title fontSize={fontSizes.fs34} fontWeight={500}>
           Итоги за {currentMonth}
         </Title>
-        <StyledTextarea />
+        <StyledTextarea value={summaryText} onChangeText={setSummaryText} />
         <Button onPress={handleSubmit}>Сохранить</Button>
       </StyledKeyboardView>
     </CommonScreenLayout>
