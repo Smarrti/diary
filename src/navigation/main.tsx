@@ -1,9 +1,9 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React, {FC} from 'react';
 import {Routes} from './routes';
-import {PlanScreen} from '../screens/plan';
 import {defaultTabbarScreenOptions} from './common';
 import {DiaryNavigator} from './diary';
+import {PlanNavigator} from './plan';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +17,7 @@ export const MainNavigator: FC = ({}) => {
       />
       <Tab.Screen
         name={Routes.TabPlan}
-        component={PlanScreen}
+        component={PlanNavigator}
         options={{tabBarLabel: 'План'}}
       />
     </Tab.Navigator>

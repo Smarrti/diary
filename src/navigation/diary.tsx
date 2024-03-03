@@ -33,7 +33,7 @@ export const DiaryNavigator: FC = ({}) => {
       <DiaryStack.Screen
         component={MonthlyPlan}
         name={Routes.MonthlyPlan}
-        options={{headerTitle: 'Планы месяца'}}
+        options={{headerTitle: 'Планы на месяц'}}
       />
       <DiaryStack.Screen
         component={DayNotes}

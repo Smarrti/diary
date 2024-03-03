@@ -13,3 +13,9 @@ export type DiaryNavigatorType = {
   [Routes.Calendar]: CalendarScreenType;
   [Routes.Summary]: CalendarScreenType;
 };
+
+export type PlanNavigatorType = {
+  [Routes.Plan]: PlanScreenType;
+  [Routes.Calendar]: CalendarScreenType;
+  [Routes.MonthlyPlan]: MonthlyPlanScreenType;
+};

@@ -6,7 +6,6 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {DiaryNavigatorType} from '../../navigation/navigationTypes';
 import {generateDiaryId} from '../../utils/generateDiaryId';
-import {Routes} from '../../navigation/routes';
 import {reaction} from 'mobx';
 import {defaultColors} from '../../styles/colors';
 import {fonts} from '../../styles/constants';
@@ -15,7 +14,7 @@ import {Alert} from 'react-native';
 interface IProps {}
 
 export const CalendarScreen: FC<IProps> = ({}) => {
-  const {navigate} =
+  const {goBack} =
     useNavigation<NativeStackNavigationProp<DiaryNavigatorType>>();
 
   const {diaryStore} = useStore();
@@ -45,7 +44,7 @@ export const CalendarScreen: FC<IProps> = ({}) => {
   reaction(
     () => diaryStore.selectDate,
     () => {
-      navigate(Routes.Diary);
+      goBack();
     },
   );
 

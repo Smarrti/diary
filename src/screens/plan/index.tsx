@@ -8,6 +8,7 @@ import {getStringMonth} from '../../utils/dates';
 import {defaultColors} from '../../styles/colors';
 import {useFocusEffect} from '@react-navigation/native';
 import {Notes} from '../../stores/diary';
+import {ActionButtons} from './ui/actionButtons';
 
 const Root = styled.ScrollView`
   padding: 22px ${HorizontalPaddingScreen}px;
@@ -18,8 +19,18 @@ const Title = styled(Text)`
 `;
 
 const Field = styled.View`
-  margin: 16px 0;
+  margin-top: 16px;
 `;
+
+const FieldContentContainer = styled.View`
+  background-color: ${defaultColors.background[2]};
+  border-radius: 16px;
+  margin-top: 12px;
+  min-height: 200px;
+  padding: 12px;
+`;
+
+const emptyFieldText = 'Поле не заполнено';
 
 export const PlanScreen: FC = ({}) => {
   const diaryStore = useStore().diaryStore;
@@ -45,13 +56,32 @@ export const PlanScreen: FC = ({}) => {
         <Title fontSize={fontSizes.fs34} fontWeight={500}>
           Мои планы на {currentMonth}
         </Title>
-        <Text italic fontSize={fontSizes.fs14} color={defaultColors.grayText}>
-          Для смены месяца измените дату в календаре
-        </Text>
+
+        <ActionButtons />
 
         <Field>
-          <Text>Чтение Библии</Text>
-          <Text>{plans?.reading}</Text>
+          <Text fontSize={fontSizes.fs18}>Чтение Библии</Text>
+          <FieldContentContainer>
+            <Text>{plans?.reading ?? emptyFieldText}</Text>
+          </FieldContentContainer>
+        </Field>
+        <Field>
+          <Text fontSize={fontSizes.fs18}>Заучивание наизусть</Text>
+          <FieldContentContainer>
+            <Text>{plans?.memorization ?? emptyFieldText}</Text>
+          </FieldContentContainer>
+        </Field>
+        <Field>
+          <Text fontSize={fontSizes.fs18}>Молитвенные нужды</Text>
+          <FieldContentContainer>
+            <Text>{plans?.pray ?? emptyFieldText}</Text>
+          </FieldContentContainer>
+        </Field>
+        <Field>
+          <Text fontSize={fontSizes.fs18}>Планы в служении</Text>
+          <FieldContentContainer>
+            <Text>{plans?.plans ?? emptyFieldText}</Text>
+          </FieldContentContainer>
         </Field>
       </Root>
     </CommonScreenLayout>
