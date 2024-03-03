@@ -1,7 +1,7 @@
 export const defaultColors = {
   primary: '#1308FE',
   secondary: '#9025FC',
-  background: ['#FFFFFF', '#FAFAFA'],
+  background: ['#FFFFFF', '#FAFAFA', '#EBEBEB'],
   disabled: '#AAB2B7',
 
   text: '#000000',
