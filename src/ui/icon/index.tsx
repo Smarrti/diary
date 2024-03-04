@@ -1,11 +1,12 @@
 import React, {FC} from 'react';
 import {iconEnum, iconList} from './list';
 import {View} from 'react-native';
+import {IconProps} from './icons/type';
 
-interface Props {
+export interface IconListProps extends IconProps {
   name: iconEnum;
 }
 
-export const Icon: FC<Props> = ({name}) => {
-  return <View>{iconList[name]({})}</View>;
+export const Icon: FC<IconListProps> = ({name, ...rest}) => {
+  return <View>{iconList[name](rest)}</View>;
 };
