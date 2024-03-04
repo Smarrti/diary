@@ -7,6 +7,7 @@ import {Notes} from '../../../stores/diary';
 
 interface IProps {
   plans: Notes | undefined;
+  summary: Notes | undefined;
 }
 
 const Field = styled.View`
@@ -23,7 +24,7 @@ const FieldContentContainer = styled.View`
 
 const emptyFieldText = 'Поле не заполнено';
 
-export const PlanFields: FC<IProps> = ({plans}) => {
+export const PlanFields: FC<IProps> = ({plans, summary}) => {
   return (
     <>
       <Field>
@@ -48,6 +49,12 @@ export const PlanFields: FC<IProps> = ({plans}) => {
         <Text fontSize={fontSizes.fs18}>Планы в служении</Text>
         <FieldContentContainer>
           <Text>{plans?.plans ?? emptyFieldText}</Text>
+        </FieldContentContainer>
+      </Field>
+      <Field>
+        <Text fontSize={fontSizes.fs18}>Итоги месяца</Text>
+        <FieldContentContainer>
+          <Text>{summary?.notes ?? emptyFieldText}</Text>
         </FieldContentContainer>
       </Field>
     </>

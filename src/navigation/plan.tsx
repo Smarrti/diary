@@ -6,6 +6,7 @@ import {PlanNavigatorType} from './navigationTypes';
 import {CalendarScreen} from '../screens/calendar';
 import {PlanScreen} from '../screens/plan';
 import {MonthlyPlan} from '../screens/monthlyPlan';
+import {SummaryScreen} from '../screens/summary';
 
 const Plan = createNativeStackNavigator<PlanNavigatorType>();
 
@@ -27,6 +28,11 @@ export const PlanNavigator: FC = ({}) => {
         component={MonthlyPlan}
         name={Routes.MonthlyPlan}
         options={{headerTitle: 'Планы на месяц'}}
+      />
+      <Plan.Screen
+        component={SummaryScreen}
+        name={Routes.Summary}
+        options={{headerTitle: 'Итоги месяца'}}
       />
     </Plan.Navigator>
   );

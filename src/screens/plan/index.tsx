@@ -9,6 +9,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import {Notes} from '../../stores/diary';
 import {ActionButtons} from './ui/actionButtons';
 import {PlanFields} from './ui/planFields';
+import {EmptyPlans} from './ui/emptyPlans';
 
 const Root = styled.ScrollView`
   padding: 22px ${HorizontalPaddingScreen}px;
@@ -23,17 +24,19 @@ export const PlanScreen: FC = ({}) => {
   const currentMonth = getStringMonth(diaryStore.selectDate?.month ?? 0);
 
   const [plans, setPlansState] = useState<Notes | undefined>();
+  const [summary, setSummary] = useState<Notes | undefined>();
 
-  const setPlans = useCallback(() => {
+  const setData = useCallback(() => {
     setPlansState(diaryStore.state?.monthlyPlan.notes);
-  }, [diaryStore.state?.monthlyPlan.notes]);
+    setSummary(diaryStore.state?.summary.notes);
+  }, [diaryStore.state?.monthlyPlan.notes, diaryStore.state?.summary.notes]);
 
   useEffect(() => {
-    setPlans();
-  }, [setPlans]);
+    setData();
+  }, [setData]);
 
   useFocusEffect(() => {
-    setPlans(); //TODO: убрать костыль c клонированием стэйта
+    setData(); //TODO: убрать костыль c клонированием стэйта
   });
 
   const isEmptyPlans = !(
@@ -43,8 +46,6 @@ export const PlanScreen: FC = ({}) => {
   const isEmptyPlansInPresentMonth =
     diaryStore.selectDate?.month === getMonth() && isEmptyPlans;
 
-  console.log(plans);
-
   return (
     <CommonScreenLayout>
       <Root>
@@ -53,11 +54,11 @@ export const PlanScreen: FC = ({}) => {
         </Title>
 
         {isEmptyPlansInPresentMonth ? (
-          <></>
+          <EmptyPlans />
         ) : (
           <>
             <ActionButtons />
-            <PlanFields plans={plans} />
+            <PlanFields plans={plans} summary={summary} />
           </>
         )}
       </Root>

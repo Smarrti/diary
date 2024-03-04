@@ -15,6 +15,7 @@ interface IProps {}
 
 const Root = styled.View`
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 16px;
 `;
 
@@ -40,6 +41,13 @@ export const ActionButtons: FC<IProps> = ({}) => {
         <Icon name={iconEnum.edit} />
         <Text fontSize={fontSizes.fs16} color={defaultColors.grayText}>
           Обновить планы
+        </Text>
+      </ButtonAction>
+
+      <ButtonAction onPress={() => navigate(Routes.Summary)}>
+        <Icon name={iconEnum.edit} />
+        <Text fontSize={fontSizes.fs16} color={defaultColors.grayText}>
+          Подвести итоги месяца
         </Text>
       </ButtonAction>
     </Root>
