@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useMemo} from 'react';
 import styled from 'styled-components/native';
 import {Text} from '../../../ui/text';
 import {defaultColors} from '../../../styles/colors';
@@ -11,6 +11,7 @@ import {DiaryNavigatorType} from '../../../navigation/navigationTypes';
 import {ShadowBlock} from '../../../ui/shadowBlock';
 import {isLastDayInMonth} from '../../../utils/dates';
 import {useStore} from '../../../stores';
+import {getBiblePlan} from '../../../modules/BiblePlan';
 
 interface IProps {}
 
@@ -67,6 +68,14 @@ export const ReadingBlock: FC<IProps> = ({}) => {
     (selectDate?.month ?? 0) - 1,
   );
 
+  const readingPlan = useMemo(() => {
+    if (!selectDate?.day || !selectDate.month) {
+      return '';
+    }
+
+    return getBiblePlan(selectDate?.day, selectDate?.month);
+  }, [selectDate?.day, selectDate?.month]);
+
   return (
     <Root>
       <Plan>
@@ -76,8 +85,7 @@ export const ReadingBlock: FC<IProps> = ({}) => {
           fontSize={fontSizes.fs14}>
           По плану
         </PlanHint>
-        <Text fontSize={fontSizes.fs22}>Быт. 41</Text>
-        <Text fontSize={fontSizes.fs22}>Мф. 13, 1–32</Text>
+        <Text fontSize={fontSizes.fs22}>{readingPlan}</Text>
       </Plan>
       <Quote>
         <QuoteText fontSize={fontSizes.fs14}>
