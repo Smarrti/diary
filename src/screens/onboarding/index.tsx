@@ -9,6 +9,7 @@ import {IconButton} from '../../ui/buttons/iconButton';
 import {useStore} from '../../stores';
 import {CommonScreenLayout} from '../../ui/layout/commonScreenLayout';
 import {Button} from '../../ui/buttons/button';
+import {Alert} from 'react-native';
 
 export const OnboardingScreen: FC = ({}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -36,6 +37,13 @@ export const OnboardingScreen: FC = ({}) => {
     });
   };
 
+  const start = () => {
+    Alert.alert(
+      'Данное приложение на текущий момент сохраняет записи только на телефон. При замене телефона, данные не возможно перенести. Сохранение данных в облако будет реализовано в будущем.',
+    );
+    setOnboarded();
+  };
+
   return (
     <CommonScreenLayout>
       <Header>
@@ -54,7 +62,7 @@ export const OnboardingScreen: FC = ({}) => {
       </Main>
       <Footer>
         {isLastSlide ? (
-          <FinishButton onPress={setOnboarded}>Войти</FinishButton>
+          <FinishButton onPress={start}>Войти</FinishButton>
         ) : (
           <IconButton onPress={handleSlidePress} />
         )}

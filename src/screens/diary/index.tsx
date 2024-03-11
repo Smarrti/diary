@@ -1,5 +1,5 @@
 import React, {FC, useCallback, useEffect, useState} from 'react';
-import {Button, ScrollView} from 'react-native';
+import {ScrollView} from 'react-native';
 import {CommonScreenLayout} from '../../ui/layout/commonScreenLayout';
 import {Routes} from '../../navigation/routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -52,10 +52,6 @@ export const DiaryScreen: FC<Props> = ({navigation}) => {
     }
   }, [navigation, selectDate]);
 
-  const handleButton = () => {
-    navigation.push(Routes.MonthlyPlan);
-  };
-
   return (
     <CommonScreenLayout>
       <ScrollView>
@@ -63,7 +59,6 @@ export const DiaryScreen: FC<Props> = ({navigation}) => {
         <Thought />
 
         {!!dayNotes && <DayNotesBlock notes={dayNotes.notes} />}
-        <Button title="План на месяц" onPress={handleButton} />
       </ScrollView>
     </CommonScreenLayout>
   );
