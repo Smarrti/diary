@@ -1,5 +1,6 @@
 import {BibleQuoteData} from './BibleQuote';
 import {BiblePlanData} from './BiblePlan';
+import {QuotesData} from './Quotes';
 
 export enum DictionaryData {
   Bible = 'Bible',
@@ -27,4 +28,19 @@ export const getTodayData = (
   }
 
   return BiblePlanData[month][newDay];
+};
+
+// выдача случайной мысли функция сохраняет мысль в quote,
+// чтобы не отображались разные мысли за одну сессию работы приложения
+let quote: string = '';
+export const getRandomQuote = () => {
+  if (quote) {
+    return quote;
+  }
+
+  const length = QuotesData.length;
+  const random = Math.floor(Math.random() * length);
+
+  quote = QuotesData[random];
+  return quote;
 };

@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import styled from 'styled-components/native';
 import {Text} from '../../../ui/text';
+import {getRandomQuote} from '../../../modules/dictionaries';
 
 interface IProps {}
 
@@ -11,10 +12,7 @@ const Root = styled.View`
 export const Thought: FC<IProps> = ({}) => {
   return (
     <Root>
-      <Text italic>
-        Спокойное и терпеливое ожидание приводит верующих к таким высотам, о
-        которых они даже не могли и думать!
-      </Text>
+      <Text italic>{getRandomQuote()}</Text>
     </Root>
   );
 };
