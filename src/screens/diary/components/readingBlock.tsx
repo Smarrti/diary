@@ -11,7 +11,7 @@ import {DiaryNavigatorType} from '../../../navigation/navigationTypes';
 import {ShadowBlock} from '../../../ui/shadowBlock';
 import {isLastDayInMonth} from '../../../utils/dates';
 import {useStore} from '../../../stores';
-import {getBiblePlan} from '../../../modules/BiblePlan';
+import {DictionaryData, getTodayData} from '../../../modules/dictionaries';
 
 interface IProps {}
 
@@ -73,7 +73,23 @@ export const ReadingBlock: FC<IProps> = ({}) => {
       return '';
     }
 
-    return getBiblePlan(selectDate?.day, selectDate?.month);
+    return getTodayData(
+      DictionaryData.Bible,
+      selectDate?.day,
+      selectDate?.month,
+    );
+  }, [selectDate?.day, selectDate?.month]);
+
+  const BibleQuote = useMemo(() => {
+    if (!selectDate?.day || !selectDate.month) {
+      return '';
+    }
+
+    return getTodayData(
+      DictionaryData.BiblePlace,
+      selectDate?.day,
+      selectDate?.month,
+    );
   }, [selectDate?.day, selectDate?.month]);
 
   return (
@@ -88,11 +104,7 @@ export const ReadingBlock: FC<IProps> = ({}) => {
         <Text fontSize={fontSizes.fs22}>{readingPlan}</Text>
       </Plan>
       <Quote>
-        <QuoteText fontSize={fontSizes.fs14}>
-          Осанна Сыну Давидову! благословен Грядущий во имя Господне! осанна в
-          вышних!
-        </QuoteText>
-        <Text fontSize={fontSizes.fs14}>Мф. 21, 9</Text>
+        <Text fontSize={fontSizes.fs14}>{BibleQuote}</Text>
       </Quote>
       <ButtonsContainer>
         {isLastDay && (

@@ -1,10 +1,6 @@
-interface BiblePlanInterface {
-  [x: number]: {
-    [y: number]: string;
-  };
-}
+import {DictionaryInterface} from './type';
 
-export const BiblePlan: BiblePlanInterface = {
+export const BiblePlanData: DictionaryInterface = {
   1: {
     1: 'Быт. 1–2\nМф. 1',
     2: 'Быт. 3–5\nМф. 2',
