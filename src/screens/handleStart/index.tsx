@@ -17,6 +17,7 @@ export const HandleStartScreen: FC = ({}) => {
     diaryStore.setSelectDate({day, month, year});
     diaryStore.getDayNotes(day);
 
+    await configStore.getStateFromManager();
     configStore.setAppInitialized();
   };
 

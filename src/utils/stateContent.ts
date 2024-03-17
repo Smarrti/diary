@@ -1,5 +1,6 @@
 import {cloneDeep} from 'lodash';
 import {DayReports, DiaryState} from '../stores/diary';
+import {ConfigState} from '../stores/configStore';
 
 const defaultMonthContent: DiaryState = {
   dayReports: [],
@@ -15,7 +16,13 @@ const defaultDayNotes: DayReports = {
   notes: {},
 };
 
+const defaultConfig: ConfigState = {
+  isOnboarded: false,
+  history: [],
+};
+
 export const getEmptyMonth = () => cloneDeep(defaultMonthContent);
+export const getEmptyConfig = () => cloneDeep(defaultConfig);
 
 export const getEmptyDayNotes = (dayNumber: number) => {
   const dayNotes = cloneDeep(defaultDayNotes);
