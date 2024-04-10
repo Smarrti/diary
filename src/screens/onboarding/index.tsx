@@ -39,6 +39,7 @@ export const OnboardingScreen: FC = ({}) => {
 
   const start = () => {
     Alert.alert(
+      'Хранение данных',
       'Данное приложение на текущий момент сохраняет записи только на телефон. При замене телефона, данные невозможно перенести. Сохранение данных в облако будет реализовано в будущем.',
     );
     setOnboarded();
@@ -83,6 +84,7 @@ const Main = styled.View`
 
 const Footer = styled.View`
   padding: 0 ${HorizontalPaddingScreen}px;
+  margin-bottom: 8px;
   height: 60px;
   align-items: flex-end;
 `;

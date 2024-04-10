@@ -1,7 +1,7 @@
 import React, {FC, ReactNode} from 'react';
 import styled from 'styled-components/native';
 import {defaultColors} from '../../styles/colors';
-import {ViewProps} from 'react-native';
+import {Platform, ViewProps} from 'react-native';
 
 interface IProps extends ViewProps {
   children: ReactNode;
@@ -10,7 +10,9 @@ interface IProps extends ViewProps {
 const Root = styled.View`
   background-color: ${defaultColors.background[0]};
   margin: 28px 0;
-  ${defaultColors.shadow.ios}
+  ${Platform.OS === 'ios'
+    ? defaultColors.shadow.ios
+    : defaultColors.shadow.android}
 `;
 
 export const ShadowBlock: FC<IProps> = ({children, ...rest}) => {

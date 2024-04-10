@@ -13,7 +13,7 @@ export const defaultColors = {
   transparent: 'transparent',
 
   shadow: {
-    android: '',
+    android: 'elevation: 12; shadow-color: rgba(0, 0, 0, 1);',
     ios: 'box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);',
   },
 };

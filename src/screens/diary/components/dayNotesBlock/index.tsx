@@ -7,6 +7,7 @@ import {EmptyNotes} from './emptyNotes';
 
 const StyledShadowBlock = styled(ShadowBlock)`
   padding: 24px;
+  margin-bottom: 34px;
 `;
 
 interface Props {

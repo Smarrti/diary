@@ -15,6 +15,7 @@ import {ButtonWrapper} from '../ui/buttons/buttonWrapper';
 import {useNavigation} from '@react-navigation/native';
 import {CalendarScreen} from '../screens/calendar';
 import {SummaryScreen} from '../screens/summary';
+import styled from 'styled-components/native';
 
 const DiaryStack = createNativeStackNavigator<DiaryNavigatorType>();
 
@@ -54,13 +55,20 @@ export const DiaryNavigator: FC = ({}) => {
   );
 };
 
+const Container = styled(ButtonWrapper)`
+  width: 32px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+`;
+
 const CalendarIcon = () => {
   const {navigate} =
     useNavigation<NativeStackNavigationProp<DiaryNavigatorType>>();
 
   return (
-    <ButtonWrapper onPress={() => navigate(Routes.Calendar)}>
+    <Container onPress={() => navigate(Routes.Calendar)}>
       <Icon name={iconEnum.calendar} />
-    </ButtonWrapper>
+    </Container>
   );
 };

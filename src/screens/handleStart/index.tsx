@@ -2,11 +2,17 @@ import {FC, useEffect} from 'react';
 import {useStore} from '../../stores';
 import {generateDiaryId} from '../../utils/generateDiaryId';
 import {getDay, getMonth, getYear} from '../../utils/dates';
+import {Platform, StatusBar} from 'react-native';
+import {defaultColors} from '../../styles/colors';
 
 export const HandleStartScreen: FC = ({}) => {
   const {diaryStore, configStore} = useStore();
 
   const startAppHandle = async () => {
+    StatusBar.setBarStyle('dark-content');
+    Platform.OS === 'android' &&
+      StatusBar.setBackgroundColor(defaultColors.background[0]);
+
     const day = getDay();
     const month = getMonth();
     const year = getYear();

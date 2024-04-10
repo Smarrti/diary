@@ -12,6 +12,7 @@ import {ShadowBlock} from '../../../ui/shadowBlock';
 import {isLastDayInMonth} from '../../../utils/dates';
 import {useStore} from '../../../stores';
 import {DictionaryData, getTodayData} from '../../../modules/dictionaries';
+import {Platform} from 'react-native';
 
 interface IProps {}
 
@@ -50,7 +51,9 @@ const ButtonsContainer = styled.View`
 
 const StyledButton = styled(Button)<{isLast?: boolean}>`
   margin-left: 8px;
-  ${defaultColors.shadow.ios}
+  ${Platform.OS === 'ios'
+    ? defaultColors.shadow.ios
+    : defaultColors.shadow.android}
 `;
 
 const buttonContainerStyle = {

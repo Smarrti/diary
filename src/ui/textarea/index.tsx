@@ -41,6 +41,7 @@ export const Textarea: FC<IProps> = ({
       fontWeight={fontWeight}
       lineHeight={lineHeight}
       multiline
+      textAlignVertical="top"
       {...rest}
     />
   );
