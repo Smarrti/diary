@@ -18,8 +18,9 @@ export class DiaryManager {
 
   public async createMonth(id: string) {
     const content = getEmptyMonth();
-    content.date.year = getYear();
-    content.date.month = getMonth();
+    const [month, year] = id.split('-');
+    content.date.year = Number(year);
+    content.date.month = Number(month);
     const contentString = JSON.stringify(content);
     await this.setMonth(id, contentString);
 

@@ -79,10 +79,10 @@ const deleteF = () => {
 const find = () => {
   RNFS.readDir(RNFS.DocumentDirectoryPath) // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
     .then(result => {
-      console.log('GOT RESULT', result);
+      console.log(result);
 
       // stat the first file
-      return Promise.all([RNFS.stat(result[0].path), result[0].path]);
+      return Promise.all([RNFS.stat(result[2].path), result[2].path]);
     })
     .then(statResult => {
       if (statResult[0].isFile()) {
@@ -94,7 +94,7 @@ const find = () => {
     })
     .then(contents => {
       // log the file contents
-      console.log(contents);
+      console.log(JSON.parse(contents));
     })
     .catch(err => {
       console.log(err.message, err.code);

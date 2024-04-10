@@ -25,12 +25,12 @@ const ButtonAction = styled(ButtonWrapper)`
 `;
 
 export const ActionButtons: FC<IProps> = ({}) => {
-  const {navigate} =
+  const {push, navigate} =
     useNavigation<NativeStackNavigationProp<PlanNavigatorType>>();
 
   return (
     <Root>
-      <ButtonAction onPress={() => navigate(Routes.Calendar)}>
+      <ButtonAction onPress={() => push(Routes.Calendar)}>
         <Icon name={iconEnum.calendar} />
         <Text fontSize={fontSizes.fs16} color={defaultColors.grayText}>
           Сменить месяц
