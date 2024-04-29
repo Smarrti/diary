@@ -4,6 +4,7 @@ import {generateDiaryId} from '../../utils/generateDiaryId';
 import {getDay, getMonth, getYear} from '../../utils/dates';
 import {Platform, StatusBar} from 'react-native';
 import {defaultColors} from '../../styles/colors';
+import BootSplash from 'react-native-bootsplash';
 
 export const HandleStartScreen: FC = ({}) => {
   const {diaryStore, configStore} = useStore();
@@ -28,7 +29,9 @@ export const HandleStartScreen: FC = ({}) => {
   };
 
   useEffect(() => {
-    startAppHandle();
+    startAppHandle().finally(() => {
+      setTimeout(() => BootSplash.hide({fade: true}));
+    });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
