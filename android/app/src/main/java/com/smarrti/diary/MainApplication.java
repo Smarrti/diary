@@ -1,4 +1,4 @@
-package com.diary;
+package com.smarrti.diary;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

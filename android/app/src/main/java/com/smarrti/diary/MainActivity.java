@@ -1,4 +1,4 @@
-package com.diary;
+package com.smarrti.diary;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
